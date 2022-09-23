@@ -18,6 +18,8 @@
 package es.uvigo.esei.dai.hybridserver;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
@@ -53,7 +55,11 @@ public class HybridServer {
 						try (Socket socket = serverSocket.accept()) {
 							if (stop) break;
 							
-							// Responder al cliente
+							InputStream input = socket.getInputStream();
+							OutputStream output = socket.getOutputStream();
+							
+							System.out.print("Server iniciado");
+							output.write("http\1.1 Hybrid Server".getBytes());
 						}
 					}
 				} catch (IOException e) {
