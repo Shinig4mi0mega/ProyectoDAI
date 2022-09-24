@@ -58,8 +58,11 @@ public class HybridServer {
 							InputStream input = socket.getInputStream();
 							OutputStream output = socket.getOutputStream();
 							
-							System.out.print("Server iniciado");
-							output.write("http\1.1 Hybrid Server".getBytes());
+							output.write("HTTP/1.1 200 OK\r\n".getBytes());
+							output.write("Connection: Closed\r\n".getBytes());
+							output.write("\r\n".getBytes());
+							output.write("Hybrid Server\r\n".getBytes());
+							
 						}
 					}
 				} catch (IOException e) {
