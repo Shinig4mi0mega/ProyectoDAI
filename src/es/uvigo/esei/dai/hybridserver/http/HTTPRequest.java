@@ -17,27 +17,76 @@
  */
 package es.uvigo.esei.dai.hybridserver.http;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.Map;
 
 public class HTTPRequest {
+	public BufferedReader buffReader;
+
 	public HTTPRequest(Reader reader) throws IOException, HTTPParseException {
+
+		buffReader = new BufferedReader(reader);
 	}
 
 	public HTTPRequestMethod getMethod() {
-		// TODO Auto-generated method stub
+		try {
+			String method = buffReader.readLine().substring(0, 6);
+
+			if (method.contains("HEAD"))
+				return HTTPRequestMethod.HEAD;
+
+			if (method.contains("GET"))
+				return HTTPRequestMethod.GET;
+
+			if (method.contains("POST"))
+				return HTTPRequestMethod.POST;
+
+			if (method.contains("PUT"))
+				return HTTPRequestMethod.PUT;
+
+			if (method.contains("DELETE"))
+				return HTTPRequestMethod.DELETE;
+
+			if (method.contains("TRACE"))
+				return HTTPRequestMethod.TRACE;
+
+			if (method.contains("OPTIONS"))
+				return HTTPRequestMethod.OPTIONS;
+
+			if (method.contains("CONNECT"))
+				return HTTPRequestMethod.CONNECT;
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	public String getResourceChain() {
-		// TODO Auto-generated method stub
-		return null;
+		String ResourceChain = null;
+		try {
+			ResourceChain = buffReader.readLine();
+			ResourceChain = ResourceChain.substring(ResourceChain.indexOf('/'));
+			ResourceChain = ResourceChain.substring(0,ResourceChain.indexOf(' '));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ResourceChain;
 	}
 
 	public String[] getResourcePath() {
-		// TODO Auto-generated method stub
-		return null;
+		String resourceChain;
+		String[] splitedResourceChain;
+		resourceChain = this.getResourceChain();
+		resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
+		splitedResourceChain = resourceChain.split("/");
+		//resourcePath = splitedResourceChain[splitedResourceChain.length]; Pensaba que era asi
+		return splitedResourceChain;
 	}
 
 	public String getResourceName() {

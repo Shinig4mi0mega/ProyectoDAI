@@ -60,6 +60,7 @@ public class HTTPRequestPOSTMultipleParametersTest {
 
 	@Test
 	public final void testGetResourcePath() {
+		System.out.println(""+request.getResourcePath()[1]);
 		assertThat(request.getResourcePath(), is(arrayContaining("resource")));
 	}
 
