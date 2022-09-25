@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HTTPRequest {
@@ -86,6 +87,9 @@ public class HTTPRequest {
 		resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
 		splitedResourceChain = resourceChain.split("/");
 		//resourcePath = splitedResourceChain[splitedResourceChain.length]; Pensaba que era asi
+		for(String s: splitedResourceChain) {
+			System.out.println(s);
+		}
 		return splitedResourceChain;
 	}
 
@@ -100,13 +104,42 @@ public class HTTPRequest {
 	}
 
 	public String getHttpVersion() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder toret = new StringBuilder("HTTP/");
+		try {
+			String line = buffReader.readLine();
+			if(line.indexOf("HTTP/") != -1) {
+				int httpIndex = line.indexOf("HTTP/");
+				//Sumo 5 quen son los 5 caracteres de HTTP y 8 = 5 + 3 donde 3 son los 3 caracteres de la version
+				String version = line.substring(httpIndex + 5, httpIndex + 8);
+				toret.append(version);
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return toret.toString();
 	}
 
 	public Map<String, String> getHeaderParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String> toret = new HashMap<>();
+		try {
+			String line = buffReader.readLine();
+			String[] tmp;
+			//La anterior sera la cabecera asi que la ignoro
+			 line = buffReader.readLine();
+			while(line !=  null && line.length() != 0) {
+				System.out.println(line);
+				tmp = line.split(": ");
+				toret.put(tmp[0], tmp[1]);
+				line = buffReader.readLine();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return toret;
+		
 	}
 
 	public String getContent() {

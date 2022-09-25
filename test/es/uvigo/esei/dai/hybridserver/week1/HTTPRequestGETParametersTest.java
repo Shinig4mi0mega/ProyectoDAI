@@ -64,9 +64,9 @@ public class HTTPRequestGETParametersTest {
 
 	@Test
 	public final void testGetResourcePath() {
-		for(String s : request.getResourcePath()) {
+/*		for(String s : request.getResourcePath()) {
 			System.out.println(s);
-		}
+		}*/
 		assertThat(request.getResourcePath(), is(arrayContaining("hello", "world.html")));
 	}
 
