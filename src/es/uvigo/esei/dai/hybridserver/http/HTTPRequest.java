@@ -26,89 +26,156 @@ import java.util.Map;
 
 public class HTTPRequest {
 	public BufferedReader buffReader;
-	
+
 	HTTPRequestMethod method;
 	String ResourceChain;
 	String[] ResourcePath;
+	String ResourceName;
 	String HttpVersion;
-	
+	Map<String, String> HeaderParameters;
+	int ContentLength;
 
 	public HTTPRequest(Reader reader) throws IOException, HTTPParseException {
 
 		buffReader = new BufferedReader(reader);
 		
 		String firstLine =  buffReader.readLine();
-		
-		
-		
+		//System.out.println("Constructor called");
 		//first line constructor parsing methods
 		this.method = parseMethod(firstLine);
-		System.out.println(method);
+		//System.out.println("method ->"+ method);
 		this.ResourceChain = parseResourceChain(firstLine);
-		System.out.println(ResourceChain);
-		this.ResourcePath = parseResourcePath(firstLine);
-		//System.out.println(ResourcePath);
+		//System.out.println("ResourceChain ->" + ResourceChain);
+		this.ResourcePath = parseResourcePath();
+		/*for(String s: this.ResourcePath) {
+			System.out.println(s);
+		}*/
+		this.ResourceName = parseResourceName();
 		this.HttpVersion = parseHttpVersion(firstLine);
-		System.out.println(HttpVersion);
+		//System.out.println("HttpVersion ->" + HttpVersion);
+
+		
+		//Parameter parser
+		this.HeaderParameters = parseHeaderParameters();
+		/*for(String k: this.HeaderParameters.keySet()) {
+			System.out.println( k + " ----> " + this.HeaderParameters.get(k));
+		}*/
+		
+		this.ContentLength = parseContentLength();
 		
 	}
-	
-	//private constructor methods
-	
+
+	// private constructor methods
+
 	private HTTPRequestMethod parseMethod(String line) {
-			if (line.contains("HEAD"))
-				return HTTPRequestMethod.HEAD;
+		if (line.contains("HEAD"))
+			return HTTPRequestMethod.HEAD;
 
-			if (line.contains("GET"))
-				return HTTPRequestMethod.GET;
+		if (line.contains("GET"))
+			return HTTPRequestMethod.GET;
 
-			if (line.contains("POST"))
-				return HTTPRequestMethod.POST;
+		if (line.contains("POST"))
+			return HTTPRequestMethod.POST;
 
-			if (line.contains("PUT"))
-				return HTTPRequestMethod.PUT;
+		if (line.contains("PUT"))
+			return HTTPRequestMethod.PUT;
 
-			if (line.contains("DELETE"))
-				return HTTPRequestMethod.DELETE;
+		if (line.contains("DELETE"))
+			return HTTPRequestMethod.DELETE;
 
-			if (line.contains("TRACE"))
-				return HTTPRequestMethod.TRACE;
+		if (line.contains("TRACE"))
+			return HTTPRequestMethod.TRACE;
 
-			if (line.contains("OPTIONS"))
-				return HTTPRequestMethod.OPTIONS;
+		if (line.contains("OPTIONS"))
+			return HTTPRequestMethod.OPTIONS;
 
-			if (line.contains("CONNECT"))
-				return HTTPRequestMethod.CONNECT;
+		if (line.contains("CONNECT"))
+			return HTTPRequestMethod.CONNECT;
 
 		return null;
 	}
-	
+
 	private String parseResourceChain(String line) {
 		String resourceChain;
-			resourceChain = line.substring(line.indexOf('/'));
-			resourceChain = resourceChain.substring(0,resourceChain.indexOf(' '));
-			//resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
+		resourceChain = line.substring(line.indexOf('/'));
+		resourceChain = resourceChain.substring(0, resourceChain.indexOf(' '));
+		// resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
 		return resourceChain;
-		
+
 	}
-	
-	private String[] parseResourcePath(String line) {
-		line = line.substring(0,line.indexOf("?"));
-		return line.split(line);
+
+	private String[] parseResourcePath() {
+		String line = this.ResourceChain;
+		String[] tmp;
+		String[] toret;
+
+		if (line.indexOf("?") != -1)
+			line = line.substring(0, line.indexOf("?"));
+
+		tmp = line.split("/");
+		toret = new String[tmp.length - 1];
+		int i = 0;
+		for (String s : toret) {
+			toret[i] = tmp[i + 1];
+			i++;
+		}
+
+		return toret;
 	}
-	
-	private String parseHttpVersion(String line) {
-		StringBuilder toret = new StringBuilder("HTTP/");
-			if(line.indexOf("HTTP/") != -1) {
-				int httpIndex = line.indexOf("HTTP/");
-				//Sumo 5 quen son los 5 caracteres de HTTP y 8 = 5 + 3 donde 3 son los 3 caracteres de la version
-				String version = line.substring(httpIndex + 5, httpIndex + 8);
-				toret.append(version);
-			}
+
+	private String parseResourceName() {
+		StringBuilder toret = new StringBuilder();
+		int i = 0;
+		for (String s : this.ResourcePath) {
+			toret.append(s);
+			if (i + 1 != this.ResourcePath.length)
+				toret.append("/");
+			i++;
+		}
+
 		return toret.toString();
 	}
+
+	private String parseHttpVersion(String line) {
+		StringBuilder toret = new StringBuilder("HTTP/");
+		if (line.indexOf("HTTP/") != -1) {
+			int httpIndex = line.indexOf("HTTP/");
+			// Sumo 5 quen son los 5 caracteres de HTTP y 8 = 5 + 3 donde 3 son los 3
+			// caracteres de la version
+			String version = line.substring(httpIndex + 5, httpIndex + 8);
+			toret.append(version);
+		}
+		return toret.toString();
+	}
+
+	private Map<String, String> parseHeaderParameters() {
+		Map<String, String> toret = new HashMap<>();
+		try {
+			String line = buffReader.readLine();
+			String[] tmp;
+			while (line != null && line.length() != 0) {
+				// System.out.println(line);
+				tmp = line.split(": ");
+				toret.put(tmp[0], tmp[1]);
+				line = buffReader.readLine();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return toret;
+	}
 	
-	//END private constructor methods
+	private int parseContentLength() {
+		for(String s: this.HeaderParameters.keySet()) {
+			
+			if(s.equals("Content-Length"))
+				return Integer.parseInt(this.HeaderParameters.get("Content-Length"));
+		}
+		return 0;
+	}
+
+	// END private constructor methods
 
 	public HTTPRequestMethod getMethod() {
 		return this.method;
@@ -123,8 +190,7 @@ public class HTTPRequest {
 	}
 
 	public String getResourceName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.ResourceName;
 	}
 
 	public Map<String, String> getResourceParameters() {
@@ -137,24 +203,7 @@ public class HTTPRequest {
 	}
 
 	public Map<String, String> getHeaderParameters() {
-		Map<String, String> toret = new HashMap<>();
-		try {
-			String line = buffReader.readLine();
-			String[] tmp;
-			//La anterior sera la cabecera asi que la ignoro
-			 line = buffReader.readLine();
-			while(line !=  null && line.length() != 0) {
-				System.out.println(line);
-				tmp = line.split(": ");
-				toret.put(tmp[0], tmp[1]);
-				line = buffReader.readLine();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return toret;
-		
+		return this.HeaderParameters;
 	}
 
 	public String getContent() {
@@ -163,8 +212,7 @@ public class HTTPRequest {
 	}
 
 	public int getContentLength() {
-		// TODO Auto-generated method stub
-		return -1;
+		return this.ContentLength;
 	}
 
 	@Override
