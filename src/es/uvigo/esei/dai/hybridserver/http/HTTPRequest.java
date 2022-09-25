@@ -26,71 +26,100 @@ import java.util.Map;
 
 public class HTTPRequest {
 	public BufferedReader buffReader;
+	
+	HTTPRequestMethod method;
+	String ResourceChain;
+	String[] ResourcePath;
+	String HttpVersion;
+	
 
 	public HTTPRequest(Reader reader) throws IOException, HTTPParseException {
 
 		buffReader = new BufferedReader(reader);
+		
+		String firstLine =  buffReader.readLine();
+		
+		
+		
+		//first line constructor parsing methods
+		this.method = parseMethod(firstLine);
+		System.out.println(method);
+		this.ResourceChain = parseResourceChain(firstLine);
+		System.out.println(ResourceChain);
+		this.ResourcePath = parseResourcePath(firstLine);
+		//System.out.println(ResourcePath);
+		this.HttpVersion = parseHttpVersion(firstLine);
+		System.out.println(HttpVersion);
+		
 	}
-
-	public HTTPRequestMethod getMethod() {
-		try {
-			String method = buffReader.readLine().substring(0, 6);
-
-			if (method.contains("HEAD"))
+	
+	//private constructor methods
+	
+	private HTTPRequestMethod parseMethod(String line) {
+			if (line.contains("HEAD"))
 				return HTTPRequestMethod.HEAD;
 
-			if (method.contains("GET"))
+			if (line.contains("GET"))
 				return HTTPRequestMethod.GET;
 
-			if (method.contains("POST"))
+			if (line.contains("POST"))
 				return HTTPRequestMethod.POST;
 
-			if (method.contains("PUT"))
+			if (line.contains("PUT"))
 				return HTTPRequestMethod.PUT;
 
-			if (method.contains("DELETE"))
+			if (line.contains("DELETE"))
 				return HTTPRequestMethod.DELETE;
 
-			if (method.contains("TRACE"))
+			if (line.contains("TRACE"))
 				return HTTPRequestMethod.TRACE;
 
-			if (method.contains("OPTIONS"))
+			if (line.contains("OPTIONS"))
 				return HTTPRequestMethod.OPTIONS;
 
-			if (method.contains("CONNECT"))
+			if (line.contains("CONNECT"))
 				return HTTPRequestMethod.CONNECT;
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return null;
+	}
+	
+	private String parseResourceChain(String line) {
+		String resourceChain;
+			resourceChain = line.substring(line.indexOf('/'));
+			resourceChain = resourceChain.substring(0,resourceChain.indexOf(' '));
+			//resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
+		return resourceChain;
+		
+	}
+	
+	private String[] parseResourcePath(String line) {
+		line = line.substring(0,line.indexOf("?"));
+		return line.split(line);
+	}
+	
+	private String parseHttpVersion(String line) {
+		StringBuilder toret = new StringBuilder("HTTP/");
+			if(line.indexOf("HTTP/") != -1) {
+				int httpIndex = line.indexOf("HTTP/");
+				//Sumo 5 quen son los 5 caracteres de HTTP y 8 = 5 + 3 donde 3 son los 3 caracteres de la version
+				String version = line.substring(httpIndex + 5, httpIndex + 8);
+				toret.append(version);
+			}
+		return toret.toString();
+	}
+	
+	//END private constructor methods
+
+	public HTTPRequestMethod getMethod() {
+		return this.method;
 	}
 
 	public String getResourceChain() {
-		String ResourceChain = null;
-		try {
-			ResourceChain = buffReader.readLine();
-			ResourceChain = ResourceChain.substring(ResourceChain.indexOf('/'));
-			ResourceChain = ResourceChain.substring(0,ResourceChain.indexOf(' '));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ResourceChain;
+		return this.ResourceChain;
 	}
 
 	public String[] getResourcePath() {
-		String resourceChain;
-		String[] splitedResourceChain;
-		resourceChain = this.getResourceChain();
-		resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
-		splitedResourceChain = resourceChain.split("/");
-		//resourcePath = splitedResourceChain[splitedResourceChain.length]; Pensaba que era asi
-		for(String s: splitedResourceChain) {
-			System.out.println(s);
-		}
-		return splitedResourceChain;
+		return this.ResourcePath;
 	}
 
 	public String getResourceName() {
@@ -104,21 +133,7 @@ public class HTTPRequest {
 	}
 
 	public String getHttpVersion() {
-		StringBuilder toret = new StringBuilder("HTTP/");
-		try {
-			String line = buffReader.readLine();
-			if(line.indexOf("HTTP/") != -1) {
-				int httpIndex = line.indexOf("HTTP/");
-				//Sumo 5 quen son los 5 caracteres de HTTP y 8 = 5 + 3 donde 3 son los 3 caracteres de la version
-				String version = line.substring(httpIndex + 5, httpIndex + 8);
-				toret.append(version);
-			}
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return toret.toString();
+		return this.HttpVersion;
 	}
 
 	public Map<String, String> getHeaderParameters() {
