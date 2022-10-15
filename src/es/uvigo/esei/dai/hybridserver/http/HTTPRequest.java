@@ -109,9 +109,8 @@ public class HTTPRequest {
 		String resourceChain;
 		resourceChain = line.substring(line.indexOf('/'));
 		resourceChain = resourceChain.substring(0, resourceChain.indexOf(' '));
-		if(resourceChain.length() == 1)
-			return "/";
 		// resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
+		System.out.println();
 		return resourceChain;
 
 	}
@@ -148,9 +147,6 @@ public class HTTPRequest {
 
 	private String parseResourceName() {
 
-		if(this.ResourceChain.length() == 1)
-			return "";
-		
 		StringBuilder toret = new StringBuilder();
 		int i = 0;
 		for (String s : this.ResourcePath) {
@@ -196,9 +192,9 @@ public class HTTPRequest {
 		String line;
 		try {
 			line = buffReader.readLine();
+			line = buffReader.readLine();
 			
-			while(line == null)
-				line = buffReader.readLine();
+			if(line != null) {
 			
 			this.content = line;
 			String resourceParametersArray[] = line.split("&");
@@ -207,6 +203,7 @@ public class HTTPRequest {
 
 				String hashAndValue[] = s.split("=");
 				this.ResourceParameters.put(hashAndValue[0], hashAndValue[1]);
+			}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
