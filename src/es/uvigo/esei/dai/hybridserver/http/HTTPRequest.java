@@ -22,7 +22,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 public class HTTPRequest {
 	public BufferedReader buffReader;
@@ -33,36 +35,44 @@ public class HTTPRequest {
 	String ResourceName;
 	String HttpVersion;
 	Map<String, String> HeaderParameters;
+	Map<String, String> ResourceParameters;
+	String content;
 	int ContentLength;
 
 	public HTTPRequest(Reader reader) throws IOException, HTTPParseException {
 
 		buffReader = new BufferedReader(reader);
-		
-		String firstLine =  buffReader.readLine();
-		//System.out.println("Constructor called");
-		//first line constructor parsing methods
+		this.ResourceParameters = new HashMap<String, String>();
+
+		String firstLine = buffReader.readLine();
+		// System.out.println("Constructor called");
+		// first line constructor parsing methods
 		this.method = parseMethod(firstLine);
-		//System.out.println("method ->"+ method);
+		// System.out.println("method ->"+ method);
 		this.ResourceChain = parseResourceChain(firstLine);
-		//System.out.println("ResourceChain ->" + ResourceChain);
+		// System.out.println("ResourceChain ->" + ResourceChain);
 		this.ResourcePath = parseResourcePath();
-		/*for(String s: this.ResourcePath) {
-			System.out.println(s);
-		}*/
+		/*
+		 * for(String s: this.ResourcePath) { System.out.println(s); }
+		 */
 		this.ResourceName = parseResourceName();
 		this.HttpVersion = parseHttpVersion(firstLine);
-		//System.out.println("HttpVersion ->" + HttpVersion);
+		// System.out.println("HttpVersion ->" + HttpVersion);
 
-		
-		//Parameter parser
+		// Parameter parser
 		this.HeaderParameters = parseHeaderParameters();
-		/*for(String k: this.HeaderParameters.keySet()) {
-			System.out.println( k + " ----> " + this.HeaderParameters.get(k));
-		}*/
+		/*
+		 * for(String k: this.HeaderParameters.keySet()) { System.out.println( k +
+		 * " ----> " + this.HeaderParameters.get(k)); }
+		 */
+
+		// parse ResourceParameters
+		parseResourceParameters(firstLine);
 		
+		parseBodyMessageParameters();
+
 		this.ContentLength = parseContentLength();
-		
+
 	}
 
 	// private constructor methods
@@ -99,18 +109,31 @@ public class HTTPRequest {
 		String resourceChain;
 		resourceChain = line.substring(line.indexOf('/'));
 		resourceChain = resourceChain.substring(0, resourceChain.indexOf(' '));
+		if(resourceChain.length() == 1)
+			return "/";
 		// resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
 		return resourceChain;
 
 	}
 
 	private String[] parseResourcePath() {
+		
+		if(this.ResourceChain.length() == 1) {
+			String[] aux = {};
+			return aux;
+		}
+		
 		String line = this.ResourceChain;
 		String[] tmp;
 		String[] toret;
 
 		if (line.indexOf("?") != -1)
 			line = line.substring(0, line.indexOf("?"));
+		
+		if(line.length() == 1) {
+			String[] aux = {"/"};
+			return aux;
+		}
 
 		tmp = line.split("/");
 		toret = new String[tmp.length - 1];
@@ -124,6 +147,10 @@ public class HTTPRequest {
 	}
 
 	private String parseResourceName() {
+
+		if(this.ResourceChain.length() == 1)
+			return "";
+		
 		StringBuilder toret = new StringBuilder();
 		int i = 0;
 		for (String s : this.ResourcePath) {
@@ -154,7 +181,6 @@ public class HTTPRequest {
 			String line = buffReader.readLine();
 			String[] tmp;
 			while (line != null && line.length() != 0) {
-				// System.out.println(line);
 				tmp = line.split(": ");
 				toret.put(tmp[0], tmp[1]);
 				line = buffReader.readLine();
@@ -165,14 +191,57 @@ public class HTTPRequest {
 		}
 		return toret;
 	}
-	
-	private int parseContentLength() {
-		for(String s: this.HeaderParameters.keySet()) {
+
+	private void parseBodyMessageParameters() {
+		String line;
+		try {
+			line = buffReader.readLine();
 			
-			if(s.equals("Content-Length"))
+			while(line == null)
+				line = buffReader.readLine();
+			
+			this.content = line;
+			String resourceParametersArray[] = line.split("&");
+
+			for (String s : resourceParametersArray) {
+
+				String hashAndValue[] = s.split("=");
+				this.ResourceParameters.put(hashAndValue[0], hashAndValue[1]);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private int parseContentLength() {
+		for (String s : this.HeaderParameters.keySet()) {
+
+			if (s.equals("Content-Length"))
 				return Integer.parseInt(this.HeaderParameters.get("Content-Length"));
 		}
 		return 0;
+	}
+
+	private void parseResourceParameters(String line) {
+		// check si tiene ? -> tiene ResourceParameters
+		if (line.contains("?")) {
+
+			// cojo el substring de donde empiezan los ResourceParameters
+			String ResourceParametersString = line.substring(line.indexOf('?') + 1);
+			// quito lo que no son los parametros aka version http
+			ResourceParametersString = ResourceParametersString.substring(0, ResourceParametersString.indexOf(' '));
+			// System.out.println(ResourceParametersString);
+			String resourceParametersArray[] = ResourceParametersString.split("&");
+
+			for (String s : resourceParametersArray) {
+
+				String hashAndValue[] = s.split("=");
+				this.ResourceParameters.put(hashAndValue[0], hashAndValue[1]);
+			}
+		}
+
 	}
 
 	// END private constructor methods
@@ -194,8 +263,7 @@ public class HTTPRequest {
 	}
 
 	public Map<String, String> getResourceParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.ResourceParameters;
 	}
 
 	public String getHttpVersion() {
@@ -207,8 +275,7 @@ public class HTTPRequest {
 	}
 
 	public String getContent() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.content;
 	}
 
 	public int getContentLength() {
