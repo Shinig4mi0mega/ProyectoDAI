@@ -21,8 +21,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,15 +36,15 @@ public class HTTPRequest {
 	String[] ResourcePath;
 	String ResourceName;
 	String HttpVersion;
-	Map<String, String> HeaderParameters;
-	Map<String, String> ResourceParameters;
+	LinkedHashMap<String, String> HeaderParameters;
+	LinkedHashMap<String, String> ResourceParameters;
 	String content;
 	int ContentLength;
 
 	public HTTPRequest(Reader reader) throws IOException, HTTPParseException {
 
 		buffReader = new BufferedReader(reader);
-		this.ResourceParameters = new HashMap<String, String>();
+		this.ResourceParameters = new LinkedHashMap<String, String>();
 
 		String firstLine = buffReader.readLine();
 		// System.out.println("Constructor called");
@@ -68,7 +70,7 @@ public class HTTPRequest {
 
 		// parse ResourceParameters
 		parseResourceParameters(firstLine);
-		
+
 		parseBodyMessageParameters();
 
 		this.ContentLength = parseContentLength();
@@ -116,21 +118,21 @@ public class HTTPRequest {
 	}
 
 	private String[] parseResourcePath() {
-		
-		if(this.ResourceChain.length() == 1) {
+
+		if (this.ResourceChain.length() == 1) {
 			String[] aux = {};
 			return aux;
 		}
-		
+
 		String line = this.ResourceChain;
 		String[] tmp;
 		String[] toret;
 
 		if (line.indexOf("?") != -1)
 			line = line.substring(0, line.indexOf("?"));
-		
-		if(line.length() == 1) {
-			String[] aux = {"/"};
+
+		if (line.length() == 1) {
+			String[] aux = { "/" };
 			return aux;
 		}
 
@@ -171,8 +173,8 @@ public class HTTPRequest {
 		return toret.toString();
 	}
 
-	private Map<String, String> parseHeaderParameters() {
-		Map<String, String> toret = new HashMap<>();
+	private LinkedHashMap<String, String> parseHeaderParameters() {
+		LinkedHashMap<String, String> toret = new LinkedHashMap<>();
 		try {
 			String line = buffReader.readLine();
 			String[] tmp;
@@ -181,6 +183,7 @@ public class HTTPRequest {
 				toret.put(tmp[0], tmp[1]);
 				line = buffReader.readLine();
 			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -188,22 +191,27 @@ public class HTTPRequest {
 		return toret;
 	}
 
+	private void parseMessage(String msg) {
+
+	}
+
 	private void parseBodyMessageParameters() {
 		String line;
 		try {
 			line = buffReader.readLine();
-			line = buffReader.readLine();
-			
-			if(line != null) {
-			
-			this.content = line;
-			String resourceParametersArray[] = line.split("&");
 
-			for (String s : resourceParametersArray) {
+			if (line != null) {
 
-				String hashAndValue[] = s.split("=");
-				this.ResourceParameters.put(hashAndValue[0], hashAndValue[1]);
-			}
+				line = java.net.URLDecoder.decode(line, StandardCharsets.UTF_8.name());
+
+				this.content = line;
+				String resourceParametersArray[] = line.split("&");
+
+				for (String s : resourceParametersArray) {
+
+					String hashAndValue[] = s.split("=");
+					this.ResourceParameters.put(hashAndValue[0], hashAndValue[1]);
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
