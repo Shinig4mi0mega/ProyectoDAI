@@ -22,61 +22,69 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class HTTPResponse {
+	
+	HTTPResponseStatus status;
+	String version;
+	String content;
+	Map<String, String> parameters;
+	
+	
 	public HTTPResponse() {
+		this.status = HTTPResponseStatus.S500;
+		this.version = "HTTP/1.1";
+		this.content = "";
+		this.parameters = null;
 	}
 
 	public HTTPResponseStatus getStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.status;
 	}
 
 	public void setStatus(HTTPResponseStatus status) {
+		this.status = status;
 	}
 
 	public String getVersion() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.version;
 	}
 
 	public void setVersion(String version) {
+		this.version = version;
 	}
 
 	public String getContent() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.content;
 	}
 
 	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Map<String, String> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.parameters;
 	}
 
 	public String putParameter(String name, String value) {
-		// TODO Auto-generated method stub
-		return null;
+		return parameters.put(name, value);
 	}
 
 	public boolean containsParameter(String name) {
-		// TODO Auto-generated method stub
-		return false;
+		return parameters.containsKey(name);
 	}
 
 	public String removeParameter(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return parameters.remove(name);
 	}
 
 	public void clearParameters() {
+		this.parameters = null;
 	}
 
 	public List<String> listParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		return parameters.keySet().stream().collect(Collectors.toList());
 	}
 
 	public void print(Writer writer) throws IOException {
