@@ -60,7 +60,8 @@ public class HTTPRequestGETParametersTest {
 	@Test
 	public final void testGetResourceChain() {
 		assertThat(request.getResourceChain(), is(equalTo("/hello/world.html?country=Spain&province=Ourense&city=Ourense")));
-	}
+	
+	}	
 
 	@Test
 	public final void testGetResourcePath() {
