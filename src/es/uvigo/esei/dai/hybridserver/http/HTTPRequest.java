@@ -32,6 +32,8 @@ public class HTTPRequest {
 	String[] ResourcePath;
 	String ResourceName;
 	String HttpVersion;
+	Map <String, String> ResourceParameters;
+	String Content;
 	Map<String, String> HeaderParameters;
 	int ContentLength;
 
@@ -194,8 +196,7 @@ public class HTTPRequest {
 	}
 
 	public Map<String, String> getResourceParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.ResourceParameters;
 	}
 
 	public String getHttpVersion() {
@@ -207,8 +208,7 @@ public class HTTPRequest {
 	}
 
 	public String getContent() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.Content;
 	}
 
 	public int getContentLength() {
