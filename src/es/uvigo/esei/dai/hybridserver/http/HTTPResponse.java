@@ -20,8 +20,11 @@ package es.uvigo.esei.dai.hybridserver.http;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class HTTPResponse {
@@ -33,10 +36,10 @@ public class HTTPResponse {
 	
 	
 	public HTTPResponse() {
-		this.status = HTTPResponseStatus.S500;
+		this.status = HTTPResponseStatus.S200;
 		this.version = "HTTP/1.1";
 		this.content = "";
-		this.parameters = null;
+		this.parameters = new HashMap<String, String>();
 	}
 
 	public HTTPResponseStatus getStatus() {
@@ -84,10 +87,40 @@ public class HTTPResponse {
 	}
 
 	public List<String> listParameters() {
-		return parameters.keySet().stream().collect(Collectors.toList());
+		List<Entry<String, String>> temp = parameters.entrySet().stream().collect(Collectors.toList());//Creamos una lista de entradas de Map
+		List<String> toret = new LinkedList<String>();
+		for(int i = 0; i < temp.size(); i++) {
+			toret.add(temp.get(i).toString().replace("=", ": "));//Cambiamos el formato de cada par para adecuarse a HTTP
+		}
+		return toret;
 	}
 
 	public void print(Writer writer) throws IOException {
+		String temp = new String(); //Para construir Strings de cara a la salida
+		
+		temp = this.getVersion();
+		temp += " ";
+		temp += Integer.toString(this.getStatus().getCode());
+		temp += " ";
+		temp += this.getStatus().getStatus();
+		
+		writer.write(temp);
+		
+		if(this.getContent().length() > 0) {
+			temp = "\r\nContent-Length: ";
+			temp += Integer.toString(this.getContent().length());
+			writer.write(temp);
+		}
+		for(int i = 0; i < this.listParameters().size(); i++) {//Bucle para cada parametro insertado
+			temp = " ";
+			temp += this.listParameters().get(i);
+			writer.write(temp);
+		}
+		temp = "\r\n\r\n";//Salto de linea entre parametros y contenido
+		if(this.getContent().length() > 0) {
+			temp += this.getContent();
+		}
+		writer.write(temp);
 	}
 
 	@Override
