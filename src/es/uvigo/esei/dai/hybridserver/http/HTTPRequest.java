@@ -20,10 +20,7 @@ package es.uvigo.esei.dai.hybridserver.http;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -31,15 +28,15 @@ import java.util.Set;
 public class HTTPRequest {
 	public BufferedReader buffReader;
 
-	HTTPRequestMethod method;
-	String ResourceChain;
-	String[] ResourcePath;
-	String ResourceName;
-	String HttpVersion;
-	LinkedHashMap<String, String> HeaderParameters;
-	LinkedHashMap<String, String> ResourceParameters;
-	String content;
-	int ContentLength;
+	public HTTPRequestMethod method;
+	public String ResourceChain;
+	public String[] ResourcePath;
+	public String ResourceName;
+	public String HttpVersion;
+	public LinkedHashMap<String, String> HeaderParameters;
+	public LinkedHashMap<String, String> ResourceParameters;
+	public String content;
+	public int ContentLength;
 
 	public HTTPRequest(Reader reader) throws IOException, HTTPParseException {
 
@@ -47,31 +44,38 @@ public class HTTPRequest {
 		this.ResourceParameters = new LinkedHashMap<String, String>();
 
 		String firstLine = buffReader.readLine();
-		// System.out.println("Constructor called");
+		System.out.println("Constructor called");
 		// first line constructor parsing methods
 		this.method = parseMethod(firstLine);
-		// System.out.println("method ->"+ method);
+		//System.out.println("method ->" + method);
 		this.ResourceChain = parseResourceChain(firstLine);
-		// System.out.println("ResourceChain ->" + ResourceChain);
+		//System.out.println("ResourceChain ->" + ResourceChain);
 		this.ResourcePath = parseResourcePath();
-		/*
-		 * for(String s: this.ResourcePath) { System.out.println(s); }
-		 */
+
+/* 		for (String s : this.ResourcePath) {
+			System.out.println(s);
+		} */
+
 		this.ResourceName = parseResourceName();
 		this.HttpVersion = parseHttpVersion(firstLine);
-		// System.out.println("HttpVersion ->" + HttpVersion);
+		//System.out.println("HttpVersion ->" + HttpVersion);
 
 		// Parameter parser
 		this.HeaderParameters = parseHeaderParameters();
-		/*
-		 * for(String k: this.HeaderParameters.keySet()) { System.out.println( k +
-		 * " ----> " + this.HeaderParameters.get(k)); }
-		 */
+/* 		System.out.println("HeaderParameters--------------");
+		for (String k : this.HeaderParameters.keySet()) {
+			System.out.println(k +
+					" ----> " + this.HeaderParameters.get(k));
+		} */
 
 		// parse ResourceParameters
 		parseResourceParameters(firstLine);
-
-		parseBodyMessageParameters();
+		/*
+		 * System.out.println("Resource parameters----------------");
+		 * for(String k : ResourceParameters.keySet()){
+		 * System.out.println(""+ k + "---->" +ResourceParameters.get(k));
+		 * }
+		 */
 
 		this.ContentLength = parseContentLength();
 
@@ -189,10 +193,6 @@ public class HTTPRequest {
 			e.printStackTrace();
 		}
 		return toret;
-	}
-
-	private void parseMessage(String msg) {
-
 	}
 
 	private void parseBodyMessageParameters() {

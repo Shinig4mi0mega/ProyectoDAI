@@ -121,6 +121,7 @@ public class HTTPResponse {
 			temp += this.getContent();
 		}
 		writer.write(temp);
+		writer.flush();
 	}
 
 	@Override

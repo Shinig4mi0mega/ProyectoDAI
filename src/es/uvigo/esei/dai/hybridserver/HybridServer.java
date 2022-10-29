@@ -18,52 +18,56 @@
 package es.uvigo.esei.dai.hybridserver;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import es.uvigo.esei.dai.hybridserver.http.HTTPParseException;
+import es.uvigo.esei.dai.hybridserver.http.HTTPRequest;
 
 public class HybridServer {
 	private static final int SERVICE_PORT = 8888;
 	private Thread serverThread;
 	private boolean stop;
+	private Map<String, String> pages;
+	Properties properties;
 
 	public HybridServer() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public HybridServer(Map<String, String> pages) {
-		// TODO Auto-generated constructor stub
+		this.pages = pages;
 	}
 
 	public HybridServer(Properties properties) {
-		// TODO Auto-generated constructor stub
+		this.properties = properties;
 	}
 
 	public int getPort() {
 		return SERVICE_PORT;
 	}
-	
+
 	public void start() {
 		this.serverThread = new Thread() {
 			@Override
 			public void run() {
 				try (final ServerSocket serverSocket = new ServerSocket(SERVICE_PORT)) {
+					ExecutorService threadPool = Executors.newFixedThreadPool(50);
 					while (true) {
-						try (Socket socket = serverSocket.accept()) {
-							if (stop) break;
-							
-							InputStream input = socket.getInputStream();
-							OutputStream output = socket.getOutputStream();
-							
-							output.write("HTTP/1.1 200 OK\r\n".getBytes());
-							output.write("Connection: Closed\r\n".getBytes());
-							output.write("\r\n".getBytes());
-							output.write("Hybrid Server\r\n".getBytes());
-							
-						}
+
+						Socket socket = serverSocket.accept();
+						if (stop)
+							break;
+						ServiceThread st = new ServiceThread(socket,pages);
+						threadPool.execute(st);
+
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -74,22 +78,22 @@ public class HybridServer {
 		this.stop = false;
 		this.serverThread.start();
 	}
-	
+
 	public void stop() {
 		this.stop = true;
-		
+
 		try (Socket socket = new Socket("localhost", SERVICE_PORT)) {
 			// Esta conexión se hace, simplemente, para "despertar" el hilo servidor
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		try {
 			this.serverThread.join();
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		this.serverThread = null;
 	}
 }
