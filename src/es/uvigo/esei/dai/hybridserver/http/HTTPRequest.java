@@ -70,7 +70,6 @@ public class HTTPRequest {
 		
 		// parse ResourceParameters
 		parseResourceParameters(firstLine);
-		
 		parseBodyMessageParameters();
 		
 		  System.out.println("Resource parameters----------------");
