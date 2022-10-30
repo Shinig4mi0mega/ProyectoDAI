@@ -139,7 +139,7 @@ public class ServiceThread implements Runnable {
         HTTPResponse response = new HTTPResponse();
         System.out.println("Method POST found");
         if(request.ContentLength <0){
-            //TODO: ad response
+            response.setStatus(HTTPResponseStatus.S400);
         }
         System.out.println("Generating uuid for post");
         UUID randomUuid = UUID.randomUUID();
@@ -184,7 +184,6 @@ public class ServiceThread implements Runnable {
         System.out.println("uuid not null");
         System.out.println("requested uuid=" + uuid);
         System.out.println("Checking if valid uuid");
-
         if (!pages.keySet().contains(uuid)) {
             System.out.println("uui not valid");
             response.setStatus(HTTPResponseStatus.S404);
@@ -198,8 +197,8 @@ public class ServiceThread implements Runnable {
         System.out.println("Building response");
 
         response.setContent(pages.get(uuid));
-
-        System.out.println(response.toString());
+        response.setStatus(HTTPResponseStatus.S200);
+        
         return response;
     }
 

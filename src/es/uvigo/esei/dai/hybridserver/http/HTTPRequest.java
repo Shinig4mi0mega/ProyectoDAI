@@ -194,10 +194,7 @@ public class HTTPRequest {
 				line = buffReader.readLine();
 			}
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (IOException e) {}
 		return toret;
 	}
 
@@ -235,10 +232,7 @@ public class HTTPRequest {
 				}
 			}
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (IOException e) {}
 
 	}
 

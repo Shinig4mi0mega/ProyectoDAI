@@ -18,18 +18,12 @@
 package es.uvigo.esei.dai.hybridserver;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.Reader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import es.uvigo.esei.dai.hybridserver.http.HTTPParseException;
-import es.uvigo.esei.dai.hybridserver.http.HTTPRequest;
 
 public class HybridServer {
 	private static final int SERVICE_PORT = 8888;
