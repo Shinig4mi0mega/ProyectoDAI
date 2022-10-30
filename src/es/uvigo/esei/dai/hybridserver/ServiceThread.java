@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Map;
+import java.util.UUID;
 
 import es.uvigo.esei.dai.hybridserver.http.HTTPParseException;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequest;
@@ -38,9 +39,9 @@ public class ServiceThread implements Runnable {
                 System.out.println("Error parse HTTP");
             }
 
-            System.out.println("Request parsed properly");
+            
 
-            System.out.println(request);
+            System.out.println(request.toString());
             System.out.println("Checking method");
 
             HTTPRequestMethod method = request.getMethod();
@@ -87,46 +88,6 @@ public class ServiceThread implements Runnable {
 
     }
 
-    private HTTPResponse deleteHandler(HTTPRequest request) {
-        System.out.println("Method DELETE found");
-        HTTPResponse response = new HTTPResponse();
-        String Resource = (request).getResourceName();
-        System.out.println("Requesting " + Resource);
-
-
-
-        System.out.println("Checking if rquesting html");
-        if(!request.getResourceName().equals("html")){
-            response.setStatus(HTTPResponseStatus.S400);
-            return response;
-        }
-        System.out.println("Rquesting html");
-
-        System.out.println("Requesting uuid");
-        String uuid = request.getResourceParameters().get("uuid");
-        System.out.println("uuid found!");
-
-        System.out.println("uuid not null");
-        System.out.println("requested uuid=" + uuid);
-        System.out.println("Checking if valid uuid");
-
-        if (!pages.keySet().contains(uuid)) {
-            System.out.println("uui not valid");
-            response.setStatus(HTTPResponseStatus.S404);
-            return response;
-        }
-        System.out.println("valid uuid");
-        System.out.println("Deleting: " + uuid);
-        pages.remove(uuid);
-        System.out.println("Deleted: " + uuid);
-
-        System.out.println("Building response");
-
-        response.setContent(pages.get(uuid));
-
-        System.out.println(response.toString());
-        return response;
-    }
 
     private HTTPResponse getHandler(HTTPRequest request) {
         HTTPResponse response = new HTTPResponse();
@@ -175,11 +136,85 @@ public class ServiceThread implements Runnable {
 
 
     private HTTPResponse PostHandler(HTTPRequest request) {
-        System.out.println("Method POST found");
         HTTPResponse response = new HTTPResponse();
+        System.out.println("Method POST found");
+        if(request.ContentLength <0){
+            //TODO: ad response
+        }
+        System.out.println("Generating uuid for post");
+        UUID randomUuid = UUID.randomUUID();
+        String uuid = randomUuid.toString();
+        System.out.println("uuid: " + uuid);
+
+        System.out.println("adding new page");
+        if(!request.content.contains("html=")){
+            response.setStatus(HTTPResponseStatus.S400);
+        }
+        pages.put(uuid, request.getContent().split("=")[1]);
+        System.out.println(request.getContent());
+
+        String link = buildLink(uuid);
+        System.out.println("ading uuid to response content");
+        response.setContent(link);
+        
+
         return response;
     }
 
+
+    private HTTPResponse deleteHandler(HTTPRequest request) {
+        System.out.println("Method DELETE found");
+        HTTPResponse response = new HTTPResponse();
+        String Resource = (request).getResourceName();
+        System.out.println("Requesting " + Resource);
+
+
+
+        System.out.println("Checking if rquesting html");
+        if(!request.getResourceName().equals("html")){
+            response.setStatus(HTTPResponseStatus.S400);
+            return response;
+        }
+        System.out.println("Rquesting html");
+
+        System.out.println("Requesting uuid");
+        String uuid = request.getResourceParameters().get("uuid");
+        System.out.println("uuid found!");
+
+        System.out.println("uuid not null");
+        System.out.println("requested uuid=" + uuid);
+        System.out.println("Checking if valid uuid");
+
+        if (!pages.keySet().contains(uuid)) {
+            System.out.println("uui not valid");
+            response.setStatus(HTTPResponseStatus.S404);
+            return response;
+        }
+        System.out.println("valid uuid");
+        System.out.println("Deleting: " + uuid);
+        pages.remove(uuid);
+        System.out.println("Deleted: " + uuid);
+
+        System.out.println("Building response");
+
+        response.setContent(pages.get(uuid));
+
+        System.out.println(response.toString());
+        return response;
+    }
+
+    private String buildLink(String uuid) {
+        // "<a href=\"html?uuid=" + uuid + "\">" + uuid + "</a>";
+        System.out.println("Building link");
+        StringBuilder toret = new StringBuilder();
+        toret.append("<a href=\"html?uuid=");
+        toret.append(uuid);
+        toret.append("\">");
+        toret.append(uuid);
+        toret.append("</a>");
+
+        return toret.toString();
+    }
 
     private String getUuidsList() {
         StringBuilder toret = new StringBuilder();

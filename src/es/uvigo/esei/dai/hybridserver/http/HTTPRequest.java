@@ -46,42 +46,44 @@ public class HTTPRequest {
 		System.out.println("Constructor called");
 		// first line constructor parsing methods
 		this.method = parseMethod(firstLine);
-		System.out.println("method ->" + method);
+		// System.out.println("method ->" + method);
 		this.ResourceChain = parseResourceChain(firstLine);
-		System.out.println("ResourceChain ->" + ResourceChain);
+		// System.out.println("ResourceChain ->" + ResourceChain);
 		this.ResourcePath = parseResourcePath();
 
-		for (String s : this.ResourcePath) {
-			System.out.println(s);
-		} 
+		/*
+		 * for (String s : this.ResourcePath) {
+		 * System.out.println(s);
+		 * }
+		 */
 
 		this.ResourceName = parseResourceName();
 		this.HttpVersion = parseHttpVersion(firstLine);
-		System.out.println("HttpVersion ->" + HttpVersion);
+		// System.out.println("HttpVersion ->" + HttpVersion);
 
 		// Parameter parser
 		this.HeaderParameters = parseHeaderParameters();
-		System.out.println("HeaderParameters--------------");
-		for (String k : this.HeaderParameters.keySet()) {
-			System.out.println(k +
-					" ----> " + this.HeaderParameters.get(k));
-		} 
+		/*
+		 * System.out.println("HeaderParameters--------------");
+		 * for (String k : this.HeaderParameters.keySet()) {
+		 * System.out.println(k +
+		 * " ----> " + this.HeaderParameters.get(k));
+		 * }
+		 */
 
-		
+		this.ContentLength = parseContentLength();
 		// parse ResourceParameters
 		parseResourceParameters(firstLine);
 		parseBodyMessageParameters();
-		
-		  System.out.println("Resource parameters----------------");
-		  for(String k : ResourceParameters.keySet()){
-		  System.out.println(""+ k + "---->" +ResourceParameters.get(k));
-		  }
-		
 
-		this.ContentLength = parseContentLength();
+		/*
+		 * System.out.println("Resource parameters----------------");
+		 * for (String k : ResourceParameters.keySet()) {
+		 * System.out.println("" + k + "---->" + ResourceParameters.get(k));
+		 * }
+		 */
 
-		System.out.println("TO STRING--------------------");
-		System.out.println(this.toString());
+		System.out.println("Request parsed properly");
 
 	}
 
@@ -200,26 +202,39 @@ public class HTTPRequest {
 	}
 
 	private void parseBodyMessageParameters() {
-		String line;
-		
+		StringBuilder lineBuilder = new StringBuilder();
+
 		try {
-			
-			System.out.println("arriba");
-			line = buffReader.readLine();
-			System.out.println("abajo");
 
-			if (line != null) {
+			System.out.println(this.ContentLength);
+			if (this.ContentLength > 0) {
+				if (buffReader.ready()) {
+					char[] aux = new char[this.ContentLength];
+					buffReader.read(aux,0,this.ContentLength);
 
-				line = java.net.URLDecoder.decode(line, StandardCharsets.UTF_8.name());
+					for(char c : aux){
+						lineBuilder.append(c);
+					}
 
-				this.content = line;
-				String resourceParametersArray[] = line.split("&");
+					String line = lineBuilder.toString();
 
-				for (String s : resourceParametersArray) {
-					String hashAndValue[] = s.split("=");
-					this.ResourceParameters.put(hashAndValue[0], hashAndValue[1]);
+
+					if (line != null) {
+						line = java.net.URLDecoder.decode(line, StandardCharsets.UTF_8.name());
+
+						this.content = line;
+						String resourceParametersArray[] = line.split("&");
+
+						for (String s : resourceParametersArray) {
+							String hashAndValue[] = s.split("=");
+							this.ResourceParameters.put(hashAndValue[0], hashAndValue[1]);
+						}
+
+					}
+
 				}
 			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -252,7 +267,7 @@ public class HTTPRequest {
 				String hashAndValue[] = s.split("=");
 				this.ResourceParameters.put(hashAndValue[0], hashAndValue[1]);
 			}
-			
+
 		}
 
 	}
