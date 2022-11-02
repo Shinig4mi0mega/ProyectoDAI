@@ -29,19 +29,19 @@ public class HybridServer {
 	private static final int SERVICE_PORT = 8888;
 	private Thread serverThread;
 	private boolean stop;
-	private Map<String, String> pages;
-	Properties properties;
+	pagesDAO dao;
 
 	public HybridServer() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public HybridServer(Map<String, String> pages) {
-		this.pages = pages;
+		this.dao = new mapDAO(pages);
 	}
 
 	public HybridServer(Properties properties) {
-		this.properties = properties;
+		this.dao = JDBDAO(properties);
+		
 	}
 
 	public int getPort() {
@@ -59,7 +59,7 @@ public class HybridServer {
 						Socket socket = serverSocket.accept();
 						if (stop)
 							break;
-						ServiceThread st = new ServiceThread(socket,pages);
+						ServiceThread st = new ServiceThread(socket,dao);
 						threadPool.execute(st);
 
 					}

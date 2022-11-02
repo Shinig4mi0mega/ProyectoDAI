@@ -5,9 +5,6 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.Map;
-import java.util.UUID;
-
 import es.uvigo.esei.dai.hybridserver.http.HTTPParseException;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequest;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequestMethod;
@@ -16,12 +13,12 @@ import es.uvigo.esei.dai.hybridserver.http.HTTPResponseStatus;
 
 public class ServiceThread implements Runnable {
     private Socket socket;
-    private Map<String, String> pages;
+    pagesDAO dao;
 
-    public ServiceThread(Socket socket, Map<String, String> pages) {
+    public ServiceThread(Socket socket, pagesDAO dao) {
         System.out.println("Construyendo service thread");
         this.socket = socket;
-        this.pages = pages;
+        this.dao = dao;
     }
 
     @Override
@@ -97,20 +94,24 @@ public class ServiceThread implements Runnable {
         System.out.println("Requesting " + Resource);
 
 
-
+        //Si no solicita l rsourc html el gt no es valido
         System.out.println("Checking if rquesting html");
         if(!request.getResourceName().equals("html")){
             response.setStatus(HTTPResponseStatus.S400);
             return response;
         }
+        //Se pide un html
         System.out.println("Rquesting html");
 
-        System.out.println("Requesting uuid");
+        //comprobamos si hay uuidd
+        System.out.println("searching uuid");
         String uuid = request.getResourceParameters().get("uuid");
         System.out.println("uuid found!");
+
+        //si no hay, devolvmos lista
         if (uuid == null) {
                 System.out.println("building list");
-                response.setContent(getUuidsList());
+                response.setContent(dao.listPages());
                 return response;
             
         }
@@ -119,7 +120,7 @@ public class ServiceThread implements Runnable {
         System.out.println("requested uuid=" + uuid);
         System.out.println("Checking if valid uuid");
 
-        if (!pages.keySet().contains(uuid)) {
+        if (!dao.exist(uuid)) {
             System.out.println("uui not valid");
             response.setStatus(HTTPResponseStatus.S404);
             return response;
@@ -127,7 +128,7 @@ public class ServiceThread implements Runnable {
 
         System.out.println("Building response");
 
-        response.setContent(pages.get(uuid));
+        response.setContent(dao.get(uuid).getContent());
 
         System.out.println(response.toString());
         return response;
@@ -141,22 +142,18 @@ public class ServiceThread implements Runnable {
         if(request.ContentLength <0){
             response.setStatus(HTTPResponseStatus.S400);
         }
-        System.out.println("Generating uuid for post");
-        UUID randomUuid = UUID.randomUUID();
-        String uuid = randomUuid.toString();
-        System.out.println("uuid: " + uuid);
-
-        System.out.println("adding new page");
+       
         if(!request.content.contains("html=")){
             response.setStatus(HTTPResponseStatus.S400);
         }
-        pages.put(uuid, request.getContent().split("=")[1]);
+        System.out.println("adding new page");
+        String content = request.getContent().split("=")[1];
+        String uuid = dao.addPage(content);
         System.out.println(request.getContent());
 
         String link = buildLink(uuid);
         System.out.println("ading uuid to response content");
         response.setContent(link);
-        
 
         return response;
     }
@@ -184,19 +181,17 @@ public class ServiceThread implements Runnable {
         System.out.println("uuid not null");
         System.out.println("requested uuid=" + uuid);
         System.out.println("Checking if valid uuid");
-        if (!pages.keySet().contains(uuid)) {
+        if (!dao.exist(uuid)) {
             System.out.println("uui not valid");
             response.setStatus(HTTPResponseStatus.S404);
             return response;
         }
         System.out.println("valid uuid");
         System.out.println("Deleting: " + uuid);
-        pages.remove(uuid);
+        dao.deletePage(uuid);
         System.out.println("Deleted: " + uuid);
 
         System.out.println("Building response");
-
-        response.setContent(pages.get(uuid));
         response.setStatus(HTTPResponseStatus.S200);
         
         return response;
@@ -215,12 +210,4 @@ public class ServiceThread implements Runnable {
         return toret.toString();
     }
 
-    private String getUuidsList() {
-        StringBuilder toret = new StringBuilder();
-        for (String k : pages.keySet()) {
-            toret.append(k).append("\n");
-        }
-        System.out.println(toret.toString());
-        return toret.toString();
-    }
 }
