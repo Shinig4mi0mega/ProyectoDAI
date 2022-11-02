@@ -46,6 +46,7 @@ public class ServiceThread implements Runnable {
             HTTPResponse response = methodHandler(request, method);
 
             System.out.println("Sending response");
+            System.out.println(response.toString());
             response.print(output);
 
         } catch (Exception e) {
@@ -107,6 +108,7 @@ public class ServiceThread implements Runnable {
         System.out.println("searching uuid");
         String uuid = request.getResourceParameters().get("uuid");
         System.out.println("uuid found!");
+        System.out.println("uuid -->" + uuid);
 
         //si no hay, devolvmos lista
         if (uuid == null) {
@@ -130,7 +132,7 @@ public class ServiceThread implements Runnable {
 
         response.setContent(dao.get(uuid).getContent());
 
-        System.out.println(response.toString());
+       System.out.println("response builded");
         return response;
 
     }
@@ -152,6 +154,7 @@ public class ServiceThread implements Runnable {
         System.out.println(request.getContent());
 
         String link = buildLink(uuid);
+        System.out.println("uuid of new pag -->" + uuid);
         System.out.println("ading uuid to response content");
         response.setContent(link);
 

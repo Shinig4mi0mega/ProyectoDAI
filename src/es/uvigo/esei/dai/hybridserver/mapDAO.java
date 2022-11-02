@@ -5,16 +5,15 @@ import java.util.UUID;
 
 public class mapDAO implements pagesDAO {
     private final Map<String, String> pages;
-    // añadir objeto connection
-
+    
     public mapDAO(Map<String, String> pages) {
         this.pages = pages;
-        // añadir objeto connection
+        
     }
 
     @Override
     public String addPage(String content) {
-        // statement.executeUpdate para añadir cosas
+        
         UUID randomUuid = UUID.randomUUID();
         String uuid = randomUuid.toString();
         pages.put(uuid, content);
@@ -36,7 +35,6 @@ public class mapDAO implements pagesDAO {
 
     @Override
     public String listPages() {
-        // statement.executeQuery para traer solo cosas
 
         StringBuilder toret = new StringBuilder();
         for (String k : pages.keySet()) {

@@ -40,9 +40,11 @@ public class HybridServer {
 	}
 
 	public HybridServer(Properties properties) {
-		this.dao = JDBDAO(properties);
+		this.dao = new JDBDAO(properties);
 		
 	}
+
+
 
 	public int getPort() {
 		return SERVICE_PORT;

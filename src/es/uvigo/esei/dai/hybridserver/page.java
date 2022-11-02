@@ -10,6 +10,12 @@ public class page {
         this.id = id;
         Content = content;
     }
+
+    public page() {
+        this.id = null;
+        Content = null;
+    }
+    
     
     public String getId() {
         return id;
