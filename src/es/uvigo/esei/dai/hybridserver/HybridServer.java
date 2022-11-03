@@ -30,9 +30,18 @@ public class HybridServer {
 	private Thread serverThread;
 	private boolean stop;
 	pagesDAO dao;
+	int nthreads;
 
 	public HybridServer() {
-		// TODO Auto-generated constructor stub
+		Properties properties = new Properties();
+		properties.setProperty("port", Integer.toString(8888));
+		properties.setProperty("numClients", "50");
+		properties.setProperty("db.url", "jdbc:mysql://localhost/hstestdb");
+		properties.setProperty("db.user", "hsdb");
+		properties.setProperty("db.password", "hsdbpass");
+
+		this.dao = new JDBDAO(properties);
+		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
 
 	public HybridServer(Map<String, String> pages) {
@@ -41,11 +50,9 @@ public class HybridServer {
 
 	public HybridServer(Properties properties) {
 		this.dao = new JDBDAO(properties);
-		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
-		
+		if (properties.getProperty("port") != null)
+			this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
-
-
 
 	public int getPort() {
 		return SERVICE_PORT;
@@ -62,7 +69,7 @@ public class HybridServer {
 						Socket socket = serverSocket.accept();
 						if (stop)
 							break;
-						ServiceThread st = new ServiceThread(socket,dao);
+						ServiceThread st = new ServiceThread(socket, dao);
 						threadPool.execute(st);
 
 					}

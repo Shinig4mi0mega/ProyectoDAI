@@ -1,0 +1,4068 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="4" failures="0" hostname="DESKTOP-TP3M6PM" id="0" name="HybridServerFirstReleaseTestSuite" package="es.uvigo.esei.dai.hybridserver" skipped="0" tests="116" time="6.689" timestamp="2022-11-03T13:02:49">
+      <properties>
+          <property name="ant.library.dir" value="C:\Users\andre\.p2\pool\plugins\org.apache.ant_1.10.12.v20211102-1452\lib" />
+
+          <property name="java.specification.version" value="17" />
+
+          <property name="ant.project.name" value="HybridServer" />
+
+          <property name="sun.cpu.isalist" value="amd64" />
+
+          <property name="sun.jnu.encoding" value="Cp1252" />
+
+          <property name="java.class.path" value="D:\GitHub\ProyectoDAI\bin;D:\GitHub\ProyectoDAI\lib\commons-logging-1.1.3.jar;D:\GitHub\ProyectoDAI\lib\dbunit-2.5.3.jar;D:\GitHub\ProyectoDAI\lib\derby.jar;D:\GitHub\ProyectoDAI\lib\fluent-hc-4.3.5.jar;D:\GitHub\ProyectoDAI\lib\httpclient-4.3.5.jar;D:\GitHub\ProyectoDAI\lib\httpcore-4.3.2.jar;D:\GitHub\ProyectoDAI\lib\java-hamcrest-2.0.0.0.jar;D:\GitHub\ProyectoDAI\lib\junit-4.12.jar;D:\GitHub\ProyectoDAI\lib\mysql-connector-java-8.0.21.jar;D:\GitHub\ProyectoDAI\lib\slf4j-api-1.7.7.jar;D:\GitHub\ProyectoDAI\lib\slf4j-simple-1.7.7.jar;C:\Users\andre\.p2\pool\plugins\org.apache.ant_1.10.12.v20211102-1452\lib\ant-launcher.jar;C:\Users\andre\.p2\pool\plugins\org.apache.ant_1.10.12.v20211102-1452\lib\ant.jar;C:\Users\andre\.p2\pool\plugins\org.apache.ant_1.10.12.v20211102-1452\lib\ant-junit.jar;C:\Users\andre\.p2\pool\plugins\org.apache.ant_1.10.12.v20211102-1452\lib\ant-junit4.jar" />
+
+          <property name="ant.file.HybridServer" value="D:\GitHub\ProyectoDAI\build.xml" />
+
+          <property name="java.vm.vendor" value="Eclipse Adoptium" />
+
+          <property name="sun.arch.data.model" value="64" />
+
+          <property name="user.variant" value="" />
+
+          <property name="java.vendor.url" value="https://adoptium.net/" />
+
+          <property name="ant.file.type.HybridServer" value="file" />
+
+          <property name="os.name" value="Windows 10" />
+
+          <property name="java.vm.specification.version" value="17" />
+
+          <property name="sun.java.launcher" value="SUN_STANDARD" />
+
+          <property name="user.country" value="ES" />
+
+          <property name="group" value="Grupo.X.Y" />
+
+          <property name="sun.boot.library.path" value="C:\Users\andre\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.4.v20221004-1257\jre\bin" />
+
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner es.uvigo.esei.dai.hybridserver.HybridServerFirstReleaseTestSuite skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,D:\GitHub\ProyectoDAI\test.report.xml crashfile=D:\GitHub\ProyectoDAI\junitvmwatcher2505342351638536398.properties propsfile=D:\GitHub\ProyectoDAI\junit10395427435993732687.properties" />
+
+          <property name="jdk.debug" value="release" />
+
+          <property name="sun.cpu.endian" value="little" />
+
+          <property name="user.home" value="C:\Users\andre" />
+
+          <property name="user.language" value="es" />
+
+          <property name="java.specification.vendor" value="Oracle Corporation" />
+
+          <property name="java.version.date" value="2022-08-12" />
+
+          <property name="java.home" value="C:\Users\andre\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.4.v20221004-1257\jre" />
+
+          <property name="file.separator" value="\" />
+
+          <property name="basedir" value="D:\GitHub\ProyectoDAI" />
+
+          <property name="java.vm.compressedOopsMode" value="Zero based" />
+
+          <property name="line.separator" value="&#xd;&#xa;" />
+
+          <property name="ant.java.version" value="17" />
+
+          <property name="java.specification.name" value="Java Platform API Specification" />
+
+          <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+
+          <property name="user.script" value="" />
+
+          <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+
+          <property name="java.runtime.version" value="17.0.4.1+1" />
+
+          <property name="java.security.manager" value="allow" />
+
+          <property name="user.name" value="andre" />
+
+          <property name="ant.file" value="D:\GitHub\ProyectoDAI\build.xml" />
+
+          <property name="path.separator" value=";" />
+
+          <property name="os.version" value="10.0" />
+
+          <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
+
+          <property name="file.encoding" value="Cp1252" />
+
+          <property name="ant.project.invoked-targets" value="release" />
+
+          <property name="java.vm.name" value="OpenJDK 64-Bit Server VM" />
+
+          <property name="java.vendor.version" value="Temurin-17.0.4.1+1" />
+
+          <property name="report.dir" value="D:\GitHub\ProyectoDAI\report" />
+
+          <property name="ant.core.lib" value="C:\Users\andre\.p2\pool\plugins\org.apache.ant_1.10.12.v20211102-1452\lib\ant.jar" />
+
+          <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues" />
+
+          <property name="report.file" value="test.report" />
+
+          <property name="java.io.tmpdir" value="C:\Users\andre\AppData\Local\Temp\" />
+
+          <property name="java.version" value="17.0.4.1" />
+
+          <property name="user.dir" value="D:\GitHub\ProyectoDAI" />
+
+          <property name="os.arch" value="amd64" />
+
+          <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+
+          <property name="ant.home" value="C:\Users\andre\.p2\pool\plugins\org.apache.ant_1.10.12.v20211102-1452" />
+
+          <property name="sun.os.patch.level" value="" />
+
+          <property name="native.encoding" value="Cp1252" />
+
+          <property name="ant.version" value="Apache Ant(TM) version 1.10.12 compiled on October 13 2021" />
+
+          <property name="java.library.path" value="C:\Users\andre\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.4.v20221004-1257\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Users/andre/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.4.v20221004-1257/jre/bin/server;C:/Users/andre/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_17.0.4.v20221004-1257/jre/bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Eclipse Adoptium\jdk-17.0.4.101-hotspot\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Common Files\Autodesk Shared\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\andre\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\andre\AppData\Local\Programs\Python\Python310\;C:\Users\andre\AppData\Local\Microsoft\WindowsApps;C:\Users\andre\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\andre\AppData\Local\GitHubDesktop\bin;C:\Windows\system32;;." />
+
+          <property name="java.vendor" value="Eclipse Adoptium" />
+
+          <property name="java.vm.info" value="mixed mode" />
+
+          <property name="java.vm.version" value="17.0.4.1+1" />
+
+          <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+
+          <property name="java.class.version" value="61.0" />
+
+          <property name="ant.project.default-target" value="release" />
+
+      </properties>
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.WelcomePageTest" name="testMultipleWelcome" time="0.645" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.WelcomePageTest" name="testWelcome" time="0.009" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPBadRequestsTest" name="test[Missing method]" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPBadRequestsTest" name="test[Missing resource]" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPBadRequestsTest" name="test[Missing version]" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPBadRequestsTest" name="test[Missing first line]" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPBadRequestsTest" name="test[Invalid header]" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetResourceChain" time="0.005" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testToString" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetHttpVersion" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetHeaderParameters" time="0.007" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetResourceName" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetResourcePath" time="0.003" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetContent" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetMethod" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetContentLength" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETRootTest" name="testGetResourceParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetResourceChain" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testToString" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetHttpVersion" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetHeaderParameters" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetResourceName" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetResourcePath" time="0.006" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetContent" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetMethod" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetContentLength" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourceTest" name="testGetResourceParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetResourceChain" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testToString" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetHttpVersion" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetHeaderParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetResourceName" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetResourcePath" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetContent" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetMethod" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetContentLength" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETResourcesTest" name="testGetResourceParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetResourceChain" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testToString" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetHttpVersion" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetHeaderParameters" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetResourceName" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetResourcePath" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetContent" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetMethod" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetContentLength" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestGETParametersTest" name="testGetResourceParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetResourceChain" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testToString" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetHttpVersion" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetHeaderParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetResourceName" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetResourcePath" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetContent" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetMethod" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetContentLength" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTOneParameterTest" name="testGetResourceParameters" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetResourceChain" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testToString" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetHttpVersion" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetHeaderParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetResourceName" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetResourcePath" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetContent" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetMethod" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetContentLength" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTMultipleParametersTest" name="testGetResourceParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetResourceChain" time="0.002" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testToString" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetHttpVersion" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetHeaderParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetResourceName" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetResourcePath" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetContent" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetMethod" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetContentLength" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPRequestPOSTEncodedTest" name="testGetResourceParameters" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPResponseNoContentTest" name="testPrint" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPResponseNoContentWithHeadersTest" name="testPrint" time="0.003" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPResponseTest" name="testPrint" time="0.0" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week1.HTTPResponseWithHeadersTest" name="testPrint" time="0.001" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week2.ClientRequetsTest" name="testPostInvalidContent" time="0.011" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week2.ClientRequetsTest" name="testPost" time="0.006" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week2.ClientRequetsTest" name="testGetInvalidResource" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week2.ClientRequetsTest" name="testGetInvalidHtmlPage" time="0.003" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week2.ClientRequetsTest" name="testGetHtmlList" time="0.003" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week2.ClientRequetsTest" name="testGetHtmlPage" time="0.022" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week2.ClientRequetsTest" name="testDelete" time="0.005" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week2.ClientRequetsTest" name="testDeleteNonexistentPage" time="0.003" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[0]" time="0.024" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[0]" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[1]" time="0.015" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[1]" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[2]" time="0.015" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[2]" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[3]" time="0.015" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[3]" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[4]" time="0.016" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[4]" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[5]" time="0.017" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[5]" time="0.005" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[6]" time="0.016" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[6]" time="0.005" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[7]" time="0.016" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[7]" time="0.005" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[8]" time="0.008">
+          <error message="Connect to localhost:55881 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect" type="org.apache.http.conn.HttpHostConnectException">org.apache.http.conn.HttpHostConnectException: Connect to localhost:55881 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect
+	at org.apache.http.impl.conn.HttpClientConnectionOperator.connect(HttpClientConnectionOperator.java:140)
+	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:318)
+	at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:363)
+	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:219)
+	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:195)
+	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:86)
+	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:108)
+	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:184)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:106)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:57)
+	at org.apache.http.client.fluent.Request.execute(Request.java:143)
+	at es.uvigo.esei.dai.hybridserver.utils.TestUtils.getContent(TestUtils.java:55)
+	at es.uvigo.esei.dai.hybridserver.week3.CustomPortTest.testMultipleWelcome(CustomPortTest.java:103)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:588)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:72)
+	at org.apache.http.impl.conn.HttpClientConnectionOperator.connect(HttpClientConnectionOperator.java:123)
+</error>
+
+          <error message="java.net.ConnectException: Connection refused: connect" type="java.lang.RuntimeException">java.lang.RuntimeException: java.net.ConnectException: Connection refused: connect
+	at es.uvigo.esei.dai.hybridserver.HybridServer.stop(HybridServer.java:91)
+	at es.uvigo.esei.dai.hybridserver.week3.CustomPortTest.stopServer(CustomPortTest.java:92)
+	at jdk.internal.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:588)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at java.base/java.net.Socket.connect(Socket.java:583)
+	at java.base/java.net.Socket.&lt;init&gt;(Socket.java:507)
+	at java.base/java.net.Socket.&lt;init&gt;(Socket.java:287)
+	at es.uvigo.esei.dai.hybridserver.HybridServer.stop(HybridServer.java:88)
+</error>
+
+      </testcase>
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[8]" time="0.006">
+          <error message="Connect to localhost:55881 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect" type="org.apache.http.conn.HttpHostConnectException">org.apache.http.conn.HttpHostConnectException: Connect to localhost:55881 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect
+	at org.apache.http.impl.conn.HttpClientConnectionOperator.connect(HttpClientConnectionOperator.java:140)
+	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:318)
+	at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:363)
+	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:219)
+	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:195)
+	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:86)
+	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:108)
+	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:184)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:106)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:57)
+	at org.apache.http.client.fluent.Request.execute(Request.java:143)
+	at es.uvigo.esei.dai.hybridserver.utils.TestUtils.getContent(TestUtils.java:55)
+	at es.uvigo.esei.dai.hybridserver.week3.CustomPortTest.testWelcome(CustomPortTest.java:97)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:588)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:72)
+	at org.apache.http.impl.conn.HttpClientConnectionOperator.connect(HttpClientConnectionOperator.java:123)
+</error>
+
+          <error message="java.net.ConnectException: Connection refused: connect" type="java.lang.RuntimeException">java.lang.RuntimeException: java.net.ConnectException: Connection refused: connect
+	at es.uvigo.esei.dai.hybridserver.HybridServer.stop(HybridServer.java:91)
+	at es.uvigo.esei.dai.hybridserver.week3.CustomPortTest.stopServer(CustomPortTest.java:92)
+	at jdk.internal.reflect.GeneratedMethodAccessor3.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:588)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at java.base/java.net.Socket.connect(Socket.java:583)
+	at java.base/java.net.Socket.&lt;init&gt;(Socket.java:507)
+	at java.base/java.net.Socket.&lt;init&gt;(Socket.java:287)
+	at es.uvigo.esei.dai.hybridserver.HybridServer.stop(HybridServer.java:88)
+</error>
+
+      </testcase>
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testMultipleWelcome[9]" time="0.016" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.CustomPortTest" name="testWelcome[9]" time="0.004" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.ClientRequestsWithDatabaseTest" name="testPostInvalidContent" time="1.635" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.ClientRequestsWithDatabaseTest" name="testPost" time="0.725" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.ClientRequestsWithDatabaseTest" name="testGetInvalidResource" time="0.603" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.ClientRequestsWithDatabaseTest" name="testGetInvalidHtmlPage" time="1.046" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.ClientRequestsWithDatabaseTest" name="testGetHtmlList" time="0.529" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.ClientRequestsWithDatabaseTest" name="testDelete" time="0.424" />
+
+      <testcase classname="es.uvigo.esei.dai.hybridserver.week3.ClientRequestsWithDatabaseTest" name="testDeleteNonexistentPage" time="0.581" />
+
+      <system-out><![CDATA[Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Constructor called
+Constructor called
+HttpVersion -> HTTP/1.1
+Constructor called
+HttpVersion -> null
+Constructor called
+Constructor called
+HttpVersion -> HTTP/1.1
+
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+21
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+85
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Constructor called
+HttpVersion -> HTTP/1.1
+
+116
+Request parsed properly
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+62
+Request parsed properly
+POST /html HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Content-Length: 62
+Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+xxx=<html><body>Testing POST</body></html>
+Checking method
+Method handler called
+
+Method POST found
+adding new page
+xxx=<html><body>Testing POST</body></html>
+Building link
+uuid of new pag -->4b7126b0-411c-45d4-8d67-5bb49f5e49bb
+ading uuid to response content
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+63
+Request parsed properly
+POST /html HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Content-Length: 63
+Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+html=<html><body>Testing POST</body></html>
+Checking method
+Method handler called
+
+Method POST found
+adding new page
+html=<html><body>Testing POST</body></html>
+Building link
+uuid of new pag -->26cd0ed4-ce1d-4c3d-8114-a0bfd44c9c82
+ading uuid to response content
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=26cd0ed4-ce1d-4c3d-8114-a0bfd44c9c82 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->26cd0ed4-ce1d-4c3d-8114-a0bfd44c9c82
+uuid not null
+requested uuid=26cd0ed4-ce1d-4c3d-8114-a0bfd44c9c82
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 38
+
+<html><body>Testing POST</body></html>
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /xxx?uuid=[Ljava.lang.String;@11ad1b20 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting xxx
+Checking if rquesting html
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=12345678-abcd-1234-ab12-9876543210ab HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->12345678-abcd-1234-ab12-9876543210ab
+uuid not null
+requested uuid=12345678-abcd-1234-ab12-9876543210ab
+Checking if valid uuid
+uui not valid
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->null
+building list
+79e01232-5ea4-41c8-9331-1c1880a1d3c2
+3aff2f9c-0c7f-4630-99ad-27a0cf1af137
+f959ecb3-6382-4ae5-9325-8fcbc068e446
+2471caa8-e8df-44d6-94f2-7752a74f6819
+6df1047e-cf19-4a83-8cf3-38f5e53f7725
+77ec1d68-84e1-40f4-be8e-066e02f4e373
+a35b6c5e-22d6-4707-98b4-462482e26c9e
+fa0979ca-2734-41f7-84c5-e40e0886e408
+c6c80c75-b335-4f68-b7a7-59434413ce6c
+8f824126-0bd1-4074-b88e-c0b59d3e67a3
+
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=6df1047e-cf19-4a83-8cf3-38f5e53f7725 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->6df1047e-cf19-4a83-8cf3-38f5e53f7725
+uuid not null
+requested uuid=6df1047e-cf19-4a83-8cf3-38f5e53f7725
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page 6df1047e-cf19-4a83-8cf3-38f5e53f7725.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=79e01232-5ea4-41c8-9331-1c1880a1d3c2 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->79e01232-5ea4-41c8-9331-1c1880a1d3c2
+uuid not null
+requested uuid=79e01232-5ea4-41c8-9331-1c1880a1d3c2
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page 79e01232-5ea4-41c8-9331-1c1880a1d3c2.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=a35b6c5e-22d6-4707-98b4-462482e26c9e HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->a35b6c5e-22d6-4707-98b4-462482e26c9e
+uuid not null
+requested uuid=a35b6c5e-22d6-4707-98b4-462482e26c9e
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page a35b6c5e-22d6-4707-98b4-462482e26c9e.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=3aff2f9c-0c7f-4630-99ad-27a0cf1af137 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->3aff2f9c-0c7f-4630-99ad-27a0cf1af137
+uuid not null
+requested uuid=3aff2f9c-0c7f-4630-99ad-27a0cf1af137
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page 3aff2f9c-0c7f-4630-99ad-27a0cf1af137.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->77ec1d68-84e1-40f4-be8e-066e02f4e373
+uuid not null
+requested uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page 77ec1d68-84e1-40f4-be8e-066e02f4e373.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=8f824126-0bd1-4074-b88e-c0b59d3e67a3 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->8f824126-0bd1-4074-b88e-c0b59d3e67a3
+uuid not null
+requested uuid=8f824126-0bd1-4074-b88e-c0b59d3e67a3
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page 8f824126-0bd1-4074-b88e-c0b59d3e67a3.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=c6c80c75-b335-4f68-b7a7-59434413ce6c HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->c6c80c75-b335-4f68-b7a7-59434413ce6c
+uuid not null
+requested uuid=c6c80c75-b335-4f68-b7a7-59434413ce6c
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page c6c80c75-b335-4f68-b7a7-59434413ce6c.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=f959ecb3-6382-4ae5-9325-8fcbc068e446 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->f959ecb3-6382-4ae5-9325-8fcbc068e446
+uuid not null
+requested uuid=f959ecb3-6382-4ae5-9325-8fcbc068e446
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page f959ecb3-6382-4ae5-9325-8fcbc068e446.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=2471caa8-e8df-44d6-94f2-7752a74f6819 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->2471caa8-e8df-44d6-94f2-7752a74f6819
+uuid not null
+requested uuid=2471caa8-e8df-44d6-94f2-7752a74f6819
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page 2471caa8-e8df-44d6-94f2-7752a74f6819.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=fa0979ca-2734-41f7-84c5-e40e0886e408 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->fa0979ca-2734-41f7-84c5-e40e0886e408
+uuid not null
+requested uuid=fa0979ca-2734-41f7-84c5-e40e0886e408
+Checking if valid uuid
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 59
+
+This is the html page fa0979ca-2734-41f7-84c5-e40e0886e408.
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+DELETE /html?uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method DELETE found
+Requesting html
+Checking if rquesting html
+Rquesting html
+Requesting uuid
+uuid found!
+uuid not null
+requested uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373
+Checking if valid uuid
+valid uuid
+Deleting: 77ec1d68-84e1-40f4-be8e-066e02f4e373
+Deleted: 77ec1d68-84e1-40f4-be8e-066e02f4e373
+Building response
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->77ec1d68-84e1-40f4-be8e-066e02f4e373
+uuid not null
+requested uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373
+Checking if valid uuid
+uui not valid
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+DELETE /html?uuid=12345678-abcd-1234-ab12-9876543210ab HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method DELETE found
+Requesting html
+Checking if rquesting html
+Rquesting html
+Requesting uuid
+uuid found!
+uuid not null
+requested uuid=12345678-abcd-1234-ab12-9876543210ab
+Checking if valid uuid
+uui not valid
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:1234
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:4242
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:7315
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8833
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:10201
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:21386
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:33217
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:45450
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET / HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:60000
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting 
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+62
+Request parsed properly
+POST /html HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Content-Length: 62
+Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+xxx=<html><body>Testing POST</body></html>
+Checking method
+Method handler called
+
+Method POST found
+adding new page
+xxx=<html><body>Testing POST</body></html>
+Building link
+uuid of new pag -->9c3dd748-f219-4347-aee6-57e5ea5a0e8d
+ading uuid to response content
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+63
+Request parsed properly
+POST /html HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Content-Length: 63
+Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+html=<html><body>Testing POST</body></html>
+Checking method
+Method handler called
+
+Method POST found
+adding new page
+html=<html><body>Testing POST</body></html>
+Building link
+uuid of new pag -->1d767efd-7f0b-4d4c-8938-3005bc3cd1cf
+ading uuid to response content
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=1d767efd-7f0b-4d4c-8938-3005bc3cd1cf HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->1d767efd-7f0b-4d4c-8938-3005bc3cd1cf
+uuid not null
+requested uuid=1d767efd-7f0b-4d4c-8938-3005bc3cd1cf
+Checking if valid uuid
+<html><body>Testing POST</body></html>
+Building response
+response build
+HTTP/1.1 200 OK
+Content-Length: 38
+
+<html><body>Testing POST</body></html>
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /xxx?uuid=[Ljava.lang.String;@793f29ff HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting xxx
+Checking if rquesting html
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=12345678-abcd-1234-ab12-9876543210ab HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->12345678-abcd-1234-ab12-9876543210ab
+uuid not null
+requested uuid=12345678-abcd-1234-ab12-9876543210ab
+Checking if valid uuid
+null
+uui not valid
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->null
+building list
+2471caa8-e8df-44d6-94f2-7752a74f6819
+3aff2f9c-0c7f-4630-99ad-27a0cf1af137
+6df1047e-cf19-4a83-8cf3-38f5e53f7725
+77ec1d68-84e1-40f4-be8e-066e02f4e373
+79e01232-5ea4-41c8-9331-1c1880a1d3c2
+8f824126-0bd1-4074-b88e-c0b59d3e67a3
+a35b6c5e-22d6-4707-98b4-462482e26c9e
+c6c80c75-b335-4f68-b7a7-59434413ce6c
+f959ecb3-6382-4ae5-9325-8fcbc068e446
+fa0979ca-2734-41f7-84c5-e40e0886e408
+
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+DELETE /html?uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method DELETE found
+Requesting html
+Checking if rquesting html
+Rquesting html
+Requesting uuid
+uuid found!
+uuid not null
+requested uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373
+Checking if valid uuid
+<html><body>This is the html page 77ec1d68-84e1-40f4-be8e-066e02f4e373.</body></html>
+valid uuid
+Deleting: 77ec1d68-84e1-40f4-be8e-066e02f4e373
+Deleted: 77ec1d68-84e1-40f4-be8e-066e02f4e373
+Building response
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373 HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->77ec1d68-84e1-40f4-be8e-066e02f4e373
+uuid not null
+requested uuid=77ec1d68-84e1-40f4-be8e-066e02f4e373
+Checking if valid uuid
+null
+uui not valid
+Sending response
+Construyendo service thread
+Thread runing
+inside try
+Constructor called
+HttpVersion -> HTTP/1.1
+
+0
+Request parsed properly
+GET /html?uuid=12345678-abcd-1234-ab12-9876543210ab HTTP/1.1
+Connection: close
+Content-encoding: UTF-8
+Host: localhost:8888
+User-Agent: Apache-HttpClient/4.3.5 (java 1.5)
+Accept-Encoding: gzip,deflate
+
+Checking method
+Method handler called
+
+Method GET found
+Requesting html
+Checking if rquesting html
+Rquesting html
+searching uuid
+uuid found!
+uuid -->12345678-abcd-1234-ab12-9876543210ab
+uuid not null
+requested uuid=12345678-abcd-1234-ab12-9876543210ab
+Checking if valid uuid
+null
+uui not valid
+Sending response
+]]></system-out>
+
+      <system-err><![CDATA[java.net.BindException: Address already in use: bind
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:555)
+	at java.base/sun.nio.ch.Net.bind(Net.java:544)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:643)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
+	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:167)
+	at es.uvigo.esei.dai.hybridserver.HybridServer$1.run(HybridServer.java:64)
+java.net.BindException: Address already in use: bind
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:555)
+	at java.base/sun.nio.ch.Net.bind(Net.java:544)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:643)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
+	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:167)
+	at es.uvigo.esei.dai.hybridserver.HybridServer$1.run(HybridServer.java:64)
+Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+]]></system-err>
+
+  </testsuite>
+</testsuites>
