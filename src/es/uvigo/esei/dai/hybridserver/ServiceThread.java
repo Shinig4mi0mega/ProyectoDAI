@@ -123,6 +123,7 @@ public class ServiceThread implements Runnable {
         if (uuid == null) {
                 System.out.println("building list");
                 response.setContent(dao.listPages());
+                response.setStatus(HTTPResponseStatus.S200);
                 return response;
             
         }
@@ -154,10 +155,12 @@ public class ServiceThread implements Runnable {
         System.out.println("Method POST found");
         if(request.ContentLength <0){
             response.setStatus(HTTPResponseStatus.S400);
+            return response;
         }
        
         if(!request.content.contains("html=")){
             response.setStatus(HTTPResponseStatus.S400);
+            return response;
         }
         System.out.println("adding new page");
         String content = request.getContent().split("=")[1];
