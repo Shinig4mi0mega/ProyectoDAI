@@ -46,7 +46,7 @@ public class ServiceThread implements Runnable {
             HTTPResponse response = methodHandler(request, method);
 
             System.out.println("Sending response");
-            System.out.println(response.toString());
+            
             response.print(output);
 
         } catch (Exception e) {
@@ -95,12 +95,23 @@ public class ServiceThread implements Runnable {
         System.out.println("Requesting " + Resource);
 
 
+        if(request.getResourceChain().equals("/")){
+            response.setStatus(HTTPResponseStatus.S200);
+            response.setContent("Hybrid Server");
+            return response;
+        }
+
+
         //Si no solicita l rsourc html el gt no es valido
         System.out.println("Checking if rquesting html");
         if(!request.getResourceName().equals("html")){
             response.setStatus(HTTPResponseStatus.S400);
             return response;
         }
+
+
+
+
         //Se pide un html
         System.out.println("Rquesting html");
 
@@ -132,7 +143,8 @@ public class ServiceThread implements Runnable {
 
         response.setContent(dao.get(uuid).getContent());
 
-       System.out.println("response builded");
+       System.out.println("response build");
+       System.out.println(response.toString());
         return response;
 
     }

@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class HybridServer {
-	private static final int SERVICE_PORT = 8888;
+	private static int SERVICE_PORT = 8888;
 	private Thread serverThread;
 	private boolean stop;
 	pagesDAO dao;
@@ -41,6 +41,7 @@ public class HybridServer {
 
 	public HybridServer(Properties properties) {
 		this.dao = new JDBDAO(properties);
+		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 		
 	}
 

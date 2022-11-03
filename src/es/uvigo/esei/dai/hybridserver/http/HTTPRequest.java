@@ -21,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -46,9 +47,28 @@ public class HTTPRequest {
 		System.out.println("Constructor called");
 		// first line constructor parsing methods
 		this.method = parseMethod(firstLine);
+
+		if(this.method == null){
+			throw new HTTPParseException();
+		}
+
+		this.HttpVersion = parseHttpVersion(firstLine);
+		System.out.println("HttpVersion -> " + HttpVersion);
+		parseResourceParameters(firstLine);
+
+		if(this.HttpVersion == null){
+			throw new HTTPParseException();
+		}
+
 		// System.out.println("method ->" + method);
 		this.ResourceChain = parseResourceChain(firstLine);
+
+		if(this.ResourceChain == null){
+			throw new HTTPParseException();
+		}
 		// System.out.println("ResourceChain ->" + ResourceChain);
+
+
 		this.ResourcePath = parseResourcePath();
 
 		/*
@@ -58,9 +78,6 @@ public class HTTPRequest {
 		 */
 
 		this.ResourceName = parseResourceName();
-		this.HttpVersion = parseHttpVersion(firstLine);
-		// System.out.println("HttpVersion ->" + HttpVersion);
-
 		// Parameter parser
 		this.HeaderParameters = parseHeaderParameters();
 		/*
@@ -73,7 +90,7 @@ public class HTTPRequest {
 
 		this.ContentLength = parseContentLength();
 		// parse ResourceParameters
-		parseResourceParameters(firstLine);
+		
 		parseBodyMessageParameters();
 
 		/*
@@ -119,6 +136,9 @@ public class HTTPRequest {
 
 	private String parseResourceChain(String line) {
 		String resourceChain;
+		if(!line.contains(" /")){
+			return null;
+		}
 		resourceChain = line.substring(line.indexOf('/'));
 		resourceChain = resourceChain.substring(0, resourceChain.indexOf(' '));
 		// resourceChain = resourceChain.substring(0,resourceChain.indexOf("?"));
@@ -179,16 +199,22 @@ public class HTTPRequest {
 			// caracteres de la version
 			String version = line.substring(httpIndex + 5, httpIndex + 8);
 			toret.append(version);
+		}else{
+			return null;
 		}
 		return toret.toString();
 	}
 
-	private LinkedHashMap<String, String> parseHeaderParameters() {
+	private LinkedHashMap<String, String> parseHeaderParameters() throws HTTPParseException {
 		LinkedHashMap<String, String> toret = new LinkedHashMap<>();
 		try {
 			String line = buffReader.readLine();
 			String[] tmp;
 			while (line != null && line.length() != 0) {
+				
+				if(!line.contains(":")){
+					throw new HTTPParseException();
+				}
 				tmp = line.split(": ");
 				toret.put(tmp[0], tmp[1]);
 				line = buffReader.readLine();
