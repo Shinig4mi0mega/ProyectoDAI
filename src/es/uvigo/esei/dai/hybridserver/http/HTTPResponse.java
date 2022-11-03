@@ -36,7 +36,7 @@ public class HTTPResponse {
 	
 	
 	public HTTPResponse() {
-		this.status = HTTPResponseStatus.S200;
+		this.status = HTTPResponseStatus.S500;
 		this.version = "HTTP/1.1";
 		this.content = "";
 		this.parameters = new HashMap<String, String>();

@@ -140,6 +140,7 @@ public class ServiceThread implements Runnable {
         System.out.println("Building response");
 
         response.setContent(dao.get(uuid).getContent());
+        response.setStatus(HTTPResponseStatus.S200);
 
        System.out.println("response build");
        System.out.println(response.toString());
@@ -167,6 +168,7 @@ public class ServiceThread implements Runnable {
         System.out.println("uuid of new pag -->" + uuid);
         System.out.println("ading uuid to response content");
         response.setContent(link);
+        response.setStatus(HTTPResponseStatus.S200);
 
         return response;
     }
