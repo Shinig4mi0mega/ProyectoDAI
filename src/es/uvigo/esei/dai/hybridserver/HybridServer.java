@@ -30,7 +30,7 @@ public class HybridServer {
 	private Thread serverThread;
 	private boolean stop;
 	pagesDAO dao;
-	public int nthreads;
+	public int nthreads = 50;
 
 	public HybridServer() {
 		Properties properties = new Properties();
@@ -40,18 +40,16 @@ public class HybridServer {
 		properties.setProperty("db.user", "hsdb");
 		properties.setProperty("db.password", "hsdbpass");
 		
-		this.nthreads = 50;
 		this.dao = new JDBDAO(properties);
 		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
 
 	public HybridServer(Map<String, String> pages) {
-		this.nthreads = Integer.parseInt(pages.get("numClients"));
 		this.dao = new mapDAO(pages);
 	}
 
 	public HybridServer(Properties properties) {
-		this.nthreads = (int) properties.get("numClients");
+		this.nthreads = Integer.parseInt(properties.getProperty("numClients"));
 		this.dao = new JDBDAO(properties);
 		if (properties.getProperty("port") != null)
 			this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
