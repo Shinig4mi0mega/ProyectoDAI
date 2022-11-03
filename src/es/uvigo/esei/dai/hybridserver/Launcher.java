@@ -17,9 +17,29 @@
  */
 package es.uvigo.esei.dai.hybridserver;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class Launcher {
 	public static void main(String[] args) {
-		HybridServer server = new HybridServer();
+		if (args[1] != null) {
+			System.out.println("Too many arguments");
+		}
+		HybridServer server = null;
+		if (args[0] != null) {
+			try {
+				InputStream input = new FileInputStream(args[0]);
+				Properties prop = new Properties();
+				prop.load(input);
+				server = new HybridServer(prop);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}else {
+			server = new HybridServer();
+		}
 		server.start();
 	}
 }

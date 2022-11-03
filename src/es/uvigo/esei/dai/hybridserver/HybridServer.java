@@ -26,11 +26,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class HybridServer {
-	private static int SERVICE_PORT = 8888;
+	private int SERVICE_PORT = 8888;
 	private Thread serverThread;
 	private boolean stop;
 	pagesDAO dao;
-	int nthreads;
+	public int nthreads;
 
 	public HybridServer() {
 		Properties properties = new Properties();
@@ -39,16 +39,19 @@ public class HybridServer {
 		properties.setProperty("db.url", "jdbc:mysql://localhost/hstestdb");
 		properties.setProperty("db.user", "hsdb");
 		properties.setProperty("db.password", "hsdbpass");
-
+		
+		this.nthreads = 50;
 		this.dao = new JDBDAO(properties);
 		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
 
 	public HybridServer(Map<String, String> pages) {
+		this.nthreads = Integer.parseInt(pages.get("numClients"));
 		this.dao = new mapDAO(pages);
 	}
 
 	public HybridServer(Properties properties) {
+		this.nthreads = (int) properties.get("numClients");
 		this.dao = new JDBDAO(properties);
 		if (properties.getProperty("port") != null)
 			this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
@@ -63,7 +66,7 @@ public class HybridServer {
 			@Override
 			public void run() {
 				try (final ServerSocket serverSocket = new ServerSocket(SERVICE_PORT)) {
-					ExecutorService threadPool = Executors.newFixedThreadPool(50);
+					ExecutorService threadPool = Executors.newFixedThreadPool(nthreads);
 					while (true) {
 
 						Socket socket = serverSocket.accept();

@@ -110,8 +110,6 @@ public class ServiceThread implements Runnable {
         }
 
 
-
-
         //Se pide un html
         System.out.println("Rquesting html");
 
