@@ -24,22 +24,23 @@ import java.util.Properties;
 
 public class Launcher {
 	public static void main(String[] args) {
-		if (args[1] != null) {
+		if (args.length > 1) {
 			System.out.println("Too many arguments");
 		}
-		HybridServer server = null;
-		if (args[0] != null) {
+		if (args.length == 1) {
 			try {
 				InputStream input = new FileInputStream(args[0]);
 				Properties prop = new Properties();
 				prop.load(input);
-				server = new HybridServer(prop);
+				HybridServer server = new HybridServer(prop);
+				server.start();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}			
 		}else {
-			server = new HybridServer();
+			HybridServer server = new HybridServer();
+			server.start();
 		}
-		server.start();
+		
 	}
 }

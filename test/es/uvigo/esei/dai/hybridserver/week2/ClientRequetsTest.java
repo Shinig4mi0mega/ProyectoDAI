@@ -92,6 +92,7 @@ public class ClientRequetsTest extends HybridServerTestCase {
 	// Ejercicio 3
 	@Test
 	public void testGetHtmlList() throws IOException {
+
 		final String pageURL = url + "html";
 		final String content = getContent(pageURL);
 
