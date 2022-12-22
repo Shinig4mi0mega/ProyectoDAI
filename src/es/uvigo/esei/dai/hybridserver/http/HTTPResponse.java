@@ -112,7 +112,7 @@ public class HTTPResponse {
 			writer.write(temp);
 		}
 		for(int i = 0; i < this.listParameters().size(); i++) {//Bucle para cada parametro insertado
-			temp = " ";
+			temp = "\n";
 			temp += this.listParameters().get(i);
 			writer.write(temp);
 		}

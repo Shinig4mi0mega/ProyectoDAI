@@ -1,4 +1,4 @@
-package es.uvigo.esei.dai.hybridserver;
+package es.uvigo.esei.dai.hybridserver.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,20 +8,13 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.UUID;
 
-public class JDBDAO implements pagesDAO {
+public class htmlDAO implements pagesDAO {
     // añadir objeto connection
     Connection connection;
     Properties properties;
 
-    public JDBDAO(Properties properties) {
+    public htmlDAO(Properties properties) {
         // añadir objeto connection
-        /*
-         * properties.setProperty("port", Integer.toString(8888));
-         * properties.setProperty("numClients", "50");
-         * properties.setProperty("db.url", getConnectionUrl());
-         * properties.setProperty("db.user", getUsername());
-         * properties.setProperty("db.password", getPassword());
-         */
         this.properties = properties;
         String dburl = properties.getProperty("db.url");
         String user = properties.getProperty("db.user");

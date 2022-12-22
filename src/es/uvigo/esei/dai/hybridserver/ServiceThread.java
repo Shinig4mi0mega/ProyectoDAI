@@ -5,20 +5,31 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.Properties;
+
+import org.apache.http.client.fluent.Request;
+
+import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.pagesDAO;
+import es.uvigo.esei.dai.hybridserver.dao.xmlDAO;
 import es.uvigo.esei.dai.hybridserver.http.HTTPParseException;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequest;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequestMethod;
 import es.uvigo.esei.dai.hybridserver.http.HTTPResponse;
 import es.uvigo.esei.dai.hybridserver.http.HTTPResponseStatus;
+import es.uvigo.esei.dai.hybridserver.http.MIME;
 
 public class ServiceThread implements Runnable {
     private Socket socket;
-    pagesDAO dao;
+    private pagesDAO dao;
+    private xmlDAO xmlDAO;
 
-    public ServiceThread(Socket socket, pagesDAO dao) {
+
+    public ServiceThread(Socket socket, Properties properties) {
         System.out.println("Construyendo service thread");
         this.socket = socket;
-        this.dao = dao;
+        this.dao = new htmlDAO(properties);
+        this.xmlDAO = new xmlDAO(properties);
     }
 
     @Override
@@ -46,6 +57,7 @@ public class ServiceThread implements Runnable {
             HTTPResponse response = methodHandler(request, method);
 
             System.out.println("Sending response");
+            System.out.println(response.toString());
             
             response.print(output);
 
@@ -86,7 +98,6 @@ public class ServiceThread implements Runnable {
 
     }
 
-
     private HTTPResponse getHandler(HTTPRequest request) {
         HTTPResponse response = new HTTPResponse();
 
@@ -98,22 +109,34 @@ public class ServiceThread implements Runnable {
         if(request.getResourceChain().equals("/")){
             response.setStatus(HTTPResponseStatus.S200);
             response.setContent("Hybrid Server");
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
 
 
-        //Si no solicita l rsourc html el gt no es valido
+        //Si no solicita el resource html o los de XML el get no es valido
         System.out.println("Checking if rquesting html");
-        if(!request.getResourceName().equals("html")){
-            response.setStatus(HTTPResponseStatus.S400);
-            return response;
+        if(request.getResourceName().equals("xml")){
+            return XmlGetHandler(request,response);
         }
 
+        if(request.getResourceName().equals("html"))
+            return HtmlGetHandler(request,response);
+        
 
+        //Si el recurso no existe se devuelve un response de 400
+        response.setStatus(HTTPResponseStatus.S400);
+        response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+        return response;
+        
+
+    }
+
+    private HTTPResponse XmlGetHandler(HTTPRequest request, HTTPResponse response) {
         //Se pide un html
-        System.out.println("Rquesting html");
+        System.out.println("Rquesting xml");
 
-        //comprobamos si hay uuidd
+        //comprobamos si hay uuid
         System.out.println("searching uuid");
         String uuid = request.getResourceParameters().get("uuid");
         System.out.println("uuid found!");
@@ -124,6 +147,7 @@ public class ServiceThread implements Runnable {
                 System.out.println("building list");
                 response.setContent(dao.listPages());
                 response.setStatus(HTTPResponseStatus.S200);
+                response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
                 return response;
             
         }
@@ -135,6 +159,7 @@ public class ServiceThread implements Runnable {
         if (!dao.exist(uuid)) {
             System.out.println("uui not valid");
             response.setStatus(HTTPResponseStatus.S404);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
 
@@ -144,22 +169,65 @@ public class ServiceThread implements Runnable {
         response.setStatus(HTTPResponseStatus.S200);
 
        System.out.println("response build");
+       response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
        System.out.println(response.toString());
         return response;
-
     }
 
+    private HTTPResponse HtmlGetHandler(HTTPRequest request, HTTPResponse response){
+        //Se pide un html
+        System.out.println("Rquesting html");
+
+        //comprobamos si hay uuid
+        System.out.println("searching uuid");
+        String uuid = request.getResourceParameters().get("uuid");
+        System.out.println("uuid found!");
+        System.out.println("uuid -->" + uuid);
+
+        //si no hay, devolvmos lista
+        if (uuid == null) {
+                System.out.println("building list");
+                response.setContent(dao.listPages());
+                response.setStatus(HTTPResponseStatus.S200);
+                response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+                return response;
+            
+        }
+
+        System.out.println("uuid not null");
+        System.out.println("requested uuid=" + uuid);
+        System.out.println("Checking if valid uuid");
+
+        if (!dao.exist(uuid)) {
+            System.out.println("uui not valid");
+            response.setStatus(HTTPResponseStatus.S404);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            return response;
+        }
+
+        System.out.println("Building response");
+
+        response.setContent(dao.get(uuid).getContent());
+        response.setStatus(HTTPResponseStatus.S200);
+
+       System.out.println("response build");
+       response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+       System.out.println(response.toString());
+        return response;
+    }
 
     private HTTPResponse PostHandler(HTTPRequest request) {
         HTTPResponse response = new HTTPResponse();
         System.out.println("Method POST found");
         if(request.ContentLength <0){
             response.setStatus(HTTPResponseStatus.S400);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
        
         if(!request.content.contains("html=")){
             response.setStatus(HTTPResponseStatus.S400);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
         System.out.println("adding new page");
@@ -172,10 +240,10 @@ public class ServiceThread implements Runnable {
         System.out.println("ading uuid to response content");
         response.setContent(link);
         response.setStatus(HTTPResponseStatus.S200);
+        response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
 
         return response;
     }
-
 
     private HTTPResponse deleteHandler(HTTPRequest request) {
         System.out.println("Method DELETE found");
@@ -188,6 +256,7 @@ public class ServiceThread implements Runnable {
         System.out.println("Checking if rquesting html");
         if(!request.getResourceName().equals("html")){
             response.setStatus(HTTPResponseStatus.S400);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
         System.out.println("Rquesting html");
@@ -202,6 +271,8 @@ public class ServiceThread implements Runnable {
         if (!dao.exist(uuid)) {
             System.out.println("uui not valid");
             response.setStatus(HTTPResponseStatus.S404);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            response.setContent("<h1>dfsf</h1>");
             return response;
         }
         System.out.println("valid uuid");
@@ -211,6 +282,7 @@ public class ServiceThread implements Runnable {
 
         System.out.println("Building response");
         response.setStatus(HTTPResponseStatus.S200);
+        response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
         
         return response;
     }

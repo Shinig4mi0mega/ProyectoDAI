@@ -25,10 +25,15 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.mapDAO;
+import es.uvigo.esei.dai.hybridserver.dao.pagesDAO;
+
 public class HybridServer {
 	private int SERVICE_PORT = 8888;
 	private Thread serverThread;
 	private boolean stop;
+	private Properties DAOProperties;
 	pagesDAO dao;
 	public int nthreads = 50;
 
@@ -40,17 +45,17 @@ public class HybridServer {
 		properties.setProperty("db.user", "hsdb");
 		properties.setProperty("db.password", "hsdbpass");
 		
-		this.dao = new JDBDAO(properties);
+		this.dao = new htmlDAO(properties);
 		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
 
-	public HybridServer(Map<String, String> pages) {
-		this.dao = new mapDAO(pages);
-	}
+	// public HybridServer(Map<String, String> pages) {
+	// 	this.dao = new mapDAO(pages);
+	// }
 
 	public HybridServer(Properties properties) {
 		this.nthreads = Integer.parseInt(properties.getProperty("numClients"));
-		this.dao = new JDBDAO(properties);
+		DAOProperties = properties;
 		if (properties.getProperty("port") != null)
 			this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
@@ -70,7 +75,7 @@ public class HybridServer {
 						Socket socket = serverSocket.accept();
 						if (stop)
 							break;
-						ServiceThread st = new ServiceThread(socket, dao);
+						ServiceThread st = new ServiceThread(socket, DAOProperties);
 						threadPool.execute(st);
 
 					}

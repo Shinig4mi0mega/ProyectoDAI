@@ -1,4 +1,4 @@
-package es.uvigo.esei.dai.hybridserver;
+package es.uvigo.esei.dai.hybridserver.dao;
 
 public interface pagesDAO {
 
