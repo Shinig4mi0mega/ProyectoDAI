@@ -117,6 +117,7 @@ extends JdbcTestCase {
 		
 		// Verificación de que la página de respuesta contiene un enlace a la nueva página
 		final String uuidHyperlink = "<a href=\"" + getResourceName() + "?uuid=" + uuid + "\">" + uuid + "</a>";
+		System.out.println("expected url: " + uuidHyperlink);
 		assertThat(responseContent, containsString(uuidHyperlink));
 		
 		// Recuperación de la nueva página

@@ -107,7 +107,7 @@ public class htmlDAO implements pagesDAO {
         }catch (SQLException e) {
         }
 
-        System.out.println(content);
+        //System.out.println(content);
 
         return !(content == null);
 

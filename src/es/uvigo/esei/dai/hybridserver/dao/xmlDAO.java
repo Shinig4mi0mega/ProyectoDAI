@@ -2,6 +2,7 @@ package es.uvigo.esei.dai.hybridserver.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -45,26 +46,70 @@ public class xmlDAO implements pagesDAO {
 
     @Override
     public void deletePage(String id) {
-        // TODO Auto-generated method stub
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM xml WHERE uuid=\'" + id + "\'");
+
+        } catch (SQLException e) {
+        }
 
     }
 
     @Override
     public String listPages() {
-        // TODO Auto-generated method stub
-        return null;
+        // statement.executeQuery para traer solo cosas
+        // Devuelve un objeto ResultSet
+        StringBuilder toret = new StringBuilder();
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet result = statement.executeQuery("Select uuid from xml")) {
+                while (result.next()) {
+                    String id = result.getString("uuid");
+                    toret.append(id).append("\n");
+                }
+            }
+
+        } catch (SQLException e) {
+        }
+
+        System.out.println(toret);
+
+        return toret.toString();
+
     }
 
     @Override
     public page get(String id) {
-        // TODO Auto-generated method stub
-        return null;
+        page page = new page();
+        page.setId(id);
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet result = statement.executeQuery("Select * from xml where uuid=\'" + id + "\'")) {
+                result.next();
+                String content = result.getString("content");
+                page.setContent(content);
+
+            }
+
+        } catch (SQLException e) {
+        }
+
+        return page;
     }
 
     @Override
     public boolean exist(String id) {
-        // TODO Auto-generated method stub
-        return false;
+        String content = null;
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet result = statement.executeQuery("Select * from xml where uuid=\'" + id + "\'")) {
+                result.next();
+                content = result.getString("content");
+
+            }
+        }catch (SQLException e) {
+        }
+
+        //System.out.println(content);
+
+        return !(content == null);
+
     }
 
 }

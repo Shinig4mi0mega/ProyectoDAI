@@ -20,13 +20,11 @@ package es.uvigo.esei.dai.hybridserver;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
-import es.uvigo.esei.dai.hybridserver.dao.mapDAO;
 import es.uvigo.esei.dai.hybridserver.dao.pagesDAO;
 
 public class HybridServer {
@@ -49,9 +47,9 @@ public class HybridServer {
 		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
 
-	// public HybridServer(Map<String, String> pages) {
-	// 	this.dao = new mapDAO(pages);
-	// }
+	public HybridServer(Map<String, String> pages) {
+		this.dao = new mapDAO(pages);
+	}
 
 	public HybridServer(Properties properties) {
 		this.nthreads = Integer.parseInt(properties.getProperty("numClients"));
