@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
 import es.uvigo.esei.dai.hybridserver.dao.xmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.xsdDAO;
 import es.uvigo.esei.dai.hybridserver.http.HTTPParseException;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequest;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequestMethod;
@@ -20,12 +21,14 @@ public class ServiceThread implements Runnable {
     private Socket socket;
     private htmlDAO htmldao;
     private xmlDAO xmlDAO;
+    private xsdDAO xsdDAO;
 
     public ServiceThread(Socket socket, Properties properties) {
 
         this.socket = socket;
         this.htmldao = new htmlDAO(properties);
         this.xmlDAO = new xmlDAO(properties);
+        this.xsdDAO = new xsdDAO(properties);
     }
 
     @Override
@@ -109,11 +112,46 @@ public class ServiceThread implements Runnable {
         if (request.getResourceName().equals("html"))
             return HtmlGetHandler(request, response);
 
+            if (request.getResourceName().equals("xsd"))
+            return XsdGetHandler(request, response);
+
         // Si el recurso no existe se devuelve un response de 400
         response.setStatus(HTTPResponseStatus.S400);
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
         return response;
 
+    }
+
+    private HTTPResponse XsdGetHandler(HTTPRequest request, HTTPResponse response) {
+        // Se pide un xsd
+
+        // comprobamos si hay uuid
+
+        String uuid = request.getResourceParameters().get("uuid");
+
+        // si no hay, devolvmos lista
+        if (uuid == null) {
+
+            response.setContent(xsdDAO.listPages());
+            response.setStatus(HTTPResponseStatus.S200);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            return response;
+
+        }
+
+        if (!xsdDAO.exist(uuid)) {
+
+            response.setStatus(HTTPResponseStatus.S404);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            return response;
+        }
+
+        response.setContent(xsdDAO.get(uuid).getContent());
+        response.setStatus(HTTPResponseStatus.S200);
+
+        response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
+
+        return response;
     }
 
     private HTTPResponse XmlGetHandler(HTTPRequest request, HTTPResponse response) {
@@ -203,6 +241,11 @@ public class ServiceThread implements Runnable {
             link = buildHTMLLink(uuid);
         }
 
+        if (request.getResourceName().equals("xsd")) {
+            uuid = xsdDAO.addPage(content);
+            link = buildXSDLink(uuid);
+        }
+
         response.setContent(link);
         response.setStatus(HTTPResponseStatus.S200);
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
@@ -221,10 +264,31 @@ public class ServiceThread implements Runnable {
         if (request.getResourceName().equals("xml"))
             return XmlDeleteHandler(request, response);
 
+            if (request.getResourceName().equals("xsd"))
+            return XsdDeleteHandler(request, response);
+
         response.setStatus(HTTPResponseStatus.S400);
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
         return response;
 
+    }
+
+    private HTTPResponse XsdDeleteHandler(HTTPRequest request, HTTPResponse response) {
+        String uuid = request.getResourceParameters().get("uuid");
+
+        if (!xsdDAO.exist(uuid)) {
+
+            response.setStatus(HTTPResponseStatus.S404);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            response.setContent("<h1>dfsf</h1>");
+            return response;
+        }
+
+        xsdDAO.deletePage(uuid);
+        response.setStatus(HTTPResponseStatus.S200);
+        response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+
+        return response;
     }
 
     private HTTPResponse XmlDeleteHandler(HTTPRequest request, HTTPResponse response) {
@@ -245,7 +309,6 @@ public class ServiceThread implements Runnable {
         return response;
     }
     
-
     private HTTPResponse HtmlDeleteHandler(HTTPRequest request, HTTPResponse response) {
         String uuid = request.getResourceParameters().get("uuid");
 
@@ -265,6 +328,7 @@ public class ServiceThread implements Runnable {
         return response;
     }
 
+    // TODO: hacer que sea el mismo para todos, si es posible
     private String buildHTMLLink(String uuid) {
 
         StringBuilder toret = new StringBuilder();
@@ -277,12 +341,27 @@ public class ServiceThread implements Runnable {
         return toret.toString();
     }
 
-    // TODO: hacer que sea el mismo para todos, si es posible
+
     private String buildXMLLink(String uuid) {
 
         // "<a href=\"" + getResourceName() + "?uuid=" + uuid + "\">" + uuid + "</a>";
         StringBuilder toret = new StringBuilder();
         toret.append("<a href=\"xml?uuid=");
+        toret.append(uuid);
+        toret.append("\">");
+        toret.append(uuid);
+        toret.append("</a>");
+
+        System.out.println(toret.toString());
+
+        return toret.toString();
+    }
+
+    private String buildXSDLink(String uuid) {
+
+        // "<a href=\"" + getResourceName() + "?uuid=" + uuid + "\">" + uuid + "</a>";
+        StringBuilder toret = new StringBuilder();
+        toret.append("<a href=\"xsd?uuid=");
         toret.append(uuid);
         toret.append("\">");
         toret.append(uuid);
