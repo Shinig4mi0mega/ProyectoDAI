@@ -47,15 +47,29 @@ public class HybridServer {
 		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
 
-	public HybridServer(Map<String, String> pages) {
-		this.dao = new mapDAO(pages);
-	}
+	//public HybridServer(Map<String, String> pages) {
+		//this.dao = new mapDAO(pages);
+	//}
 
 	public HybridServer(Properties properties) {
 		this.nthreads = Integer.parseInt(properties.getProperty("numClients"));
 		DAOProperties = properties;
 		if (properties.getProperty("port") != null)
 			this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
+	}
+
+	public HybridServer(Configuration config) {
+		this.nthreads = config.getNumClients();
+
+		Properties dBProperties = new Properties();
+		dBProperties.setProperty("db.url", config.getDbURL());
+		dBProperties.setProperty("db.user", config.getDbUser());
+		dBProperties.setProperty("db.password", config.getDbPassword());
+
+		DAOProperties = dBProperties;
+		
+		this.SERVICE_PORT = config.getHttpPort();
+		
 	}
 
 	public int getPort() {

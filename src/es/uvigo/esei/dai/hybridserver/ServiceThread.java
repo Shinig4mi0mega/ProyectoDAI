@@ -49,7 +49,7 @@ public class ServiceThread implements Runnable {
 
             }
 
-            //System.out.println(request.toString());
+            System.out.println(request.toString());
 
             HTTPRequestMethod method = request.getMethod();
 
