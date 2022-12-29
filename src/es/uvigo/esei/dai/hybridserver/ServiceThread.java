@@ -2,12 +2,33 @@ package es.uvigo.esei.dai.hybridserver;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.Socket;
 import java.util.Properties;
 
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.page;
 import es.uvigo.esei.dai.hybridserver.dao.xmlDAO;
 import es.uvigo.esei.dai.hybridserver.dao.xsdDAO;
 import es.uvigo.esei.dai.hybridserver.dao.xsltDAO;
@@ -55,7 +76,7 @@ public class ServiceThread implements Runnable {
 
             HTTPResponse response = methodHandler(request, method);
 
-            //System.out.println(response.toString());
+            // System.out.println(response.toString());
 
             response.print(output);
 
@@ -94,7 +115,7 @@ public class ServiceThread implements Runnable {
 
     }
 
-    //GET HANDLE -----------------------------
+    // GET HANDLE -----------------------------
 
     private HTTPResponse getHandler(HTTPRequest request) {
         HTTPResponse response = new HTTPResponse();
@@ -217,12 +238,74 @@ public class ServiceThread implements Runnable {
             return response;
         }
 
+        if (request.getResourceParameters().keySet().contains("xslt")) {
+            String content = "";
+            String xml = xmlDAO.get(uuid).getContent();
+
+            // VERIFICACIONES DEL XSLT Y XSD--------------------------------
+            if (!(xsltDAO.exist(request.getResourceParameters().get("xslt")))) {
+                response.setStatus(HTTPResponseStatus.S404);
+                response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+                return response;
+            }
+
+            String xsdUuid = xsltDAO.getXsdId(request.getResourceParameters().get("xslt")).getContent();
+            String xsd = xsdDAO.get(xsdUuid).getContent();
+
+            if (!validateXML(xml, xsd)) {
+                response.setStatus(HTTPResponseStatus.S400);
+                response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+                return response;
+            }
+
+            // VERIFICACIONES DEL XSLT Y XSD-----------------------------------
+
+            String xsltContent = xsltDAO.get(request.getResourceParameters().get("xslt")).getContent();
+            try {
+                content = parseXmlToHtml(xml, xsltContent);
+            } catch (Exception e) {
+            }
+
+            response.setContent(content);
+            response.setStatus(HTTPResponseStatus.S200);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            return response;
+        }
+
         response.setContent(xmlDAO.get(uuid).getContent());
         response.setStatus(HTTPResponseStatus.S200);
-
         response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
 
         return response;
+    }
+
+    private boolean validateXML(String xml, String xsd) {
+        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        try {
+            Schema schema = schemaFactory.newSchema(new StreamSource(new StringReader(xsd)));
+
+            Validator validator = schema.newValidator();
+            validator.validate(new StreamSource(new StringReader(xml)));
+            return true;
+        } catch (SAXException | IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private String parseXmlToHtml(String xml, String xslt) throws Exception {
+
+        TransformerFactory tFactory = TransformerFactory.newInstance();
+        Transformer transformer = tFactory.newTransformer(new StreamSource(new StringReader(xslt)));
+
+        StringWriter writer = new StringWriter();
+
+        transformer.transform(
+                new StreamSource(new StringReader(xml)),
+                new StreamResult(writer));
+
+        return writer.toString();
+
     }
 
     private HTTPResponse HtmlGetHandler(HTTPRequest request, HTTPResponse response) {
@@ -257,7 +340,7 @@ public class ServiceThread implements Runnable {
         return response;
     }
 
-    //DELETE HANDLE -----------------------------
+    // DELETE HANDLE -----------------------------
 
     private HTTPResponse deleteHandler(HTTPRequest request) {
 
@@ -273,7 +356,7 @@ public class ServiceThread implements Runnable {
         if (request.getResourceName().equals("xsd"))
             return XsdDeleteHandler(request, response);
 
-            if (request.getResourceName().equals("xslt"))
+        if (request.getResourceName().equals("xslt"))
             return XsltDeleteHandler(request, response);
 
         response.setStatus(HTTPResponseStatus.S400);
@@ -355,14 +438,15 @@ public class ServiceThread implements Runnable {
         return response;
     }
 
-    //POST HANDLE -----------------------------
+    // POST HANDLE -----------------------------
 
     private HTTPResponse PostHandler(HTTPRequest request) {
         HTTPResponse response = new HTTPResponse();
 
+        response.setStatus(HTTPResponseStatus.S400);
+        response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+
         if (request.ContentLength < 0) {
-            response.setStatus(HTTPResponseStatus.S400);
-            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
 
@@ -385,12 +469,22 @@ public class ServiceThread implements Runnable {
             link = buildXSDLink(uuid);
         }
 
+        // System.out.println(request.getResourceParameters().toString());
         if (request.getResourceName().equals("xslt")) {
-            content = request.getContent().split("=")[2];
-            String xsd = request.getContent().split("=")[1];
-            //quito las ultimas 5 letras que forman parte de xslt=
-            xsd = xsd.substring(0,xsd.length()-5);
-            uuid = xsltDAO.addPage(content,xsd);
+
+            if (!(request.getResourceParameters().keySet().contains("xsd")
+                    && request.getResourceParameters().keySet().contains("xslt")))
+                return response;
+
+            String xsd = request.getResourceParameters().get("xsd");
+            String xslt = request.getResourceParameters().get("xslt");
+            System.out.println(!xsdDAO.exist(xsd));
+            if (!xsdDAO.exist(xsd)) {
+                response.setStatus(HTTPResponseStatus.S404);
+                return response;
+            }
+
+            uuid = xsltDAO.addPage(xslt, xsd);
             link = buildXSLTLink(uuid);
         }
 
@@ -400,8 +494,6 @@ public class ServiceThread implements Runnable {
 
         return response;
     }
-
-
 
     // TODO: hacer que sea el mismo para todos, si es posible
     private String buildHTMLLink(String uuid) {
@@ -426,7 +518,7 @@ public class ServiceThread implements Runnable {
         toret.append(uuid);
         toret.append("</a>");
 
-        //System\.out\.println\(toret\.toString\(\)\);
+        // System\.out\.println\(toret\.toString\(\)\);
 
         return toret.toString();
     }
@@ -440,22 +532,22 @@ public class ServiceThread implements Runnable {
         toret.append(uuid);
         toret.append("</a>");
 
-        //System\.out\.println\(toret\.toString\(\)\);
+        // System\.out\.println\(toret\.toString\(\)\);
 
         return toret.toString();
     }
 
     private String buildXSLTLink(String uuid) {
-                
-                StringBuilder toret = new StringBuilder();
-                toret.append("<a href=\"xslt?uuid=");
-                toret.append(uuid);
-                toret.append("\">");
-                toret.append(uuid);
-                toret.append("</a>");
-        
-                //System\.out\.println\(toret\.toString\(\)\);
-        
-                return toret.toString();
+
+        StringBuilder toret = new StringBuilder();
+        toret.append("<a href=\"xslt?uuid=");
+        toret.append(uuid);
+        toret.append("\">");
+        toret.append(uuid);
+        toret.append("</a>");
+
+        // System\.out\.println\(toret\.toString\(\)\);
+
+        return toret.toString();
     }
 }

@@ -117,6 +117,9 @@ extends JdbcTestCase {
 			
 			final String content = getContentWithType(uuidPageURL, MIME.TEXT_HTML.getMime());
 
+			//System.out.println(content);
+			//System.out.println(page[4]);
+
 			assertThat(content, is(equalsToIgnoringSpaces(page[4])));
 		}
 	}

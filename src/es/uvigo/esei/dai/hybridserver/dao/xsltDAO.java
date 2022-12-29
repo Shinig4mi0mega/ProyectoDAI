@@ -94,6 +94,23 @@ public class xsltDAO {
         return page;
     }
 
+    public page getXsdId(String id) {
+        page page = new page();
+        page.setId(id);
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet result = statement.executeQuery("Select * from xslt where uuid=\'" + id + "\'")) {
+                result.next();
+                String content = result.getString("xsd");
+                page.setContent(content);
+
+            }
+
+        } catch (SQLException e) {
+        }
+
+        return page;
+    }
+
     
     public boolean exist(String id) {
         String content = null;
