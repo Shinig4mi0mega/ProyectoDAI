@@ -48,28 +48,37 @@ public class XMLConfigurationLoader {
 		NodeList configNodes = configurationNode.getChildNodes();
 
 		String currentNodeName;
+		int handledNodes = 0;
 		for (int i = 0; i < configNodes.getLength(); i++) {
 			// System.out.println(configNodes.item(i).getNodeName());
 
 			currentNodeName = configNodes.item(i).getNodeName();
 
-			if (currentNodeName.equals("connections"))
+			if (currentNodeName.equals("connections")) {
 				handleConections(configNodes.item(i));
+				handledNodes++;
+			}
 
-			if (currentNodeName.equals("database"))
+			if (currentNodeName.equals("database")) {
 				handleDatabase(configNodes.item(i));
+				handledNodes++;
+			}
 
-			if (currentNodeName.equals("servers"))
+			if (currentNodeName.equals("servers")) {
 				handleServers(configNodes.item(i));
-
+				handledNodes++;
+			}
 		}
+
+		if (handledNodes != 3)
+			throw new Exception();
 
 		return configuration;
 	}
 
-	private void handleConections(Node item) {
+	private void handleConections(Node item) throws Exception{
 		NodeList connectionNodes = item.getChildNodes();
-
+		boolean http = false;
 		String currentNodeName;
 		for (int i = 0; i < connectionNodes.getLength(); i++) {
 			// System.out.println(connectionNodes.item(i).getNodeName());
@@ -78,20 +87,26 @@ public class XMLConfigurationLoader {
 
 			if (currentNodeName.equals("http")) {
 				configuration.setHttpPort(Integer.parseInt(connectionNodes.item(i).getTextContent()));
+				http = true;
 				continue;
 			}
 
 			if (currentNodeName.equals("webservice")) {
 				configuration.setWebServiceURL(connectionNodes.item(i).getTextContent());
+
 				continue;
 			}
 
 			if (currentNodeName.equals("numClients")) {
 				configuration.setNumClients(Integer.parseInt(connectionNodes.item(i).getTextContent()));
+
 				continue;
 			}
 
 		}
+
+		if(!http)
+			throw new Exception();
 	}
 
 	private void handleDatabase(Node item) {
@@ -105,23 +120,26 @@ public class XMLConfigurationLoader {
 
 			if (currentNodeName.equals("user")) {
 				configuration.setDbUser(connectionNodes.item(i).getTextContent());
+
 				continue;
 			}
 
 			if (currentNodeName.equals("password")) {
 				configuration.setDbPassword(connectionNodes.item(i).getTextContent());
+
 				continue;
 			}
 
 			if (currentNodeName.equals("url")) {
 				configuration.setDbURL(connectionNodes.item(i).getTextContent());
+
 				continue;
 			}
 
 		}
 	}
 
-	private void handleServers(Node item) {
+	private void handleServers(Node item) throws Exception {
 		NodeList connectionNodes = item.getChildNodes();
 		List<ServerConfiguration> serverConfigs = new LinkedList<ServerConfiguration>();
 		String currentNodeName;
@@ -138,40 +156,49 @@ public class XMLConfigurationLoader {
 		configuration.setServers(serverConfigs);
 	}
 
-	private ServerConfiguration parseServer(NamedNodeMap serverAtributes) {
+	private ServerConfiguration parseServer(NamedNodeMap serverAtributes) throws Exception {
 		ServerConfiguration config = new ServerConfiguration();
 		String line[];
 		String currentNodeName;
+		int parsedNodes = 0;
 		for (int i = 0; i < serverAtributes.getLength(); i++) {
 
 			line = serverAtributes.item(i).toString().split("=\"");
 
 			if (line[0].equals("httpAddress")) {
 				config.setHttpAddress(line[1].substring(0, line[1].length() - 1));
+				parsedNodes++;
 				continue;
 			}
 
 			if (line[0].equals("name")) {
 				config.setName(line[1].substring(0, line[1].length() - 1));
+				parsedNodes++;
 				continue;
 			}
 
 			if (line[0].equals("namespace")) {
 				config.setNamespace(line[1].substring(0, line[1].length() - 1));
+				parsedNodes++;
 				continue;
 			}
 
 			if (line[0].equals("service")) {
 				config.setService(line[1].substring(0, line[1].length() - 1));
+				parsedNodes++;
 				continue;
 			}
 
 			if (line[0].equals("wsdl")) {
 				config.setWsdl(line[1].substring(0, line[1].length() - 1));
+				parsedNodes++;
 				continue;
 			}
 
 		}
+
+		if (parsedNodes != 5)
+			throw new Exception();
 
 		return config;
 	}

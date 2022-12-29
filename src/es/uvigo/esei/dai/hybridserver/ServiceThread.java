@@ -460,6 +460,12 @@ public class ServiceThread implements Runnable {
         }
 
         if (request.getResourceName().equals("html")) {
+
+            if (!request.getResourceParameters().keySet().contains("html")) {
+                response.setStatus(HTTPResponseStatus.S400);
+                response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+                return response;
+            }
             uuid = htmldao.addPage(content);
             link = buildHTMLLink(uuid);
         }
