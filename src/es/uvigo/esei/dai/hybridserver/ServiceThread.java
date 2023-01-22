@@ -32,7 +32,7 @@ import es.uvigo.esei.dai.hybridserver.http.HTTPResponse;
 import es.uvigo.esei.dai.hybridserver.http.HTTPResponseStatus;
 import es.uvigo.esei.dai.hybridserver.http.MIME;
 
-public class ServiceThread implements Runnable {
+public class ServiceThread implements Runnable, ServiceInterface {
     private Socket socket;
     private htmlDAO htmldao;
     private xmlDAO xmlDAO;
@@ -548,5 +548,44 @@ public class ServiceThread implements Runnable {
         // System\.out\.println\(toret\.toString\(\)\);
 
         return toret.toString();
+    }
+    public String[] getAllHTMLUUIDs(){
+        return null;
+    }
+    public String[] getAllXMLUUIDs(){
+        return null;
+    }
+    public String[] getAllXSDUUIDs(){
+        return null;
+    }
+    public String[] getAllXSLTUUIDs(){
+        return null;
+    }
+    public String getHTMLfromUUID(String uuid){
+        if (!htmldao.exist(uuid)) {
+            return null;
+        }
+        return htmldao.get(uuid).getContent();
+    }
+    public String getXMLfromUUID(String uuid){
+        if (!xmlDAO.exist(uuid)) {
+            return null;
+        }
+        return xmlDAO.get(uuid).getContent();
+    }
+    public String getXSDfromUUID(String uuid){
+        if (!xsdDAO.exist(uuid)) {
+            return null;
+        }
+        return xsdDAO.get(uuid).getContent();
+    }
+    public String getXSLTfromUUID(String uuid){
+        if (!xsltDAO.exist(uuid)) {
+            return null;
+        }
+        return xsltDAO.get(uuid).getContent();
+    }
+    public String getXSDUUIDfromXSLTUUID(String uuid){
+        return null;
     }
 }
