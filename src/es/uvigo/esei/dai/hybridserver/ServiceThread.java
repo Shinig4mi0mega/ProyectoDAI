@@ -550,16 +550,16 @@ public class ServiceThread implements Runnable, ServiceInterface {
         return toret.toString();
     }
     public String[] getAllHTMLUUIDs(){
-        return null;
+        return htmldao.listPagesArray();
     }
     public String[] getAllXMLUUIDs(){
-        return null;
+        return xmlDAO.listPagesArray();
     }
     public String[] getAllXSDUUIDs(){
-        return null;
+        return xsdDAO.listPagesArray();
     }
     public String[] getAllXSLTUUIDs(){
-        return null;
+        return xsltDAO.listPagesArray();
     }
     public String getHTMLfromUUID(String uuid){
         if (!htmldao.exist(uuid)) {
@@ -586,6 +586,9 @@ public class ServiceThread implements Runnable, ServiceInterface {
         return xsltDAO.get(uuid).getContent();
     }
     public String getXSDUUIDfromXSLTUUID(String uuid){
-        return null;
+        if (!xsltDAO.exist(uuid)) {
+            return null;
+        }
+        return xsltDAO.getXsdId(uuid).getId();
     }
 }

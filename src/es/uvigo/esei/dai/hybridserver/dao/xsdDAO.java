@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -74,6 +75,29 @@ public class xsdDAO implements pagesDAO {
         System.out.println(toret);
 
         return toret.toString();
+
+    }
+
+    public String[] listPagesArray() {
+        // statement.executeQuery para traer solo cosas
+        // Devuelve un objeto ResultSet
+        ArrayList<String> temp = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet result = statement.executeQuery("Select uuid from xsd")) {
+                while (result.next()) {
+                    String id = result.getString("uuid");
+                    temp.add(id);
+                }
+            }
+
+        } catch (SQLException e) {
+        }
+        String[] toret = new String[temp.size()];
+        for (int i = 0; i<temp.size(); i++){
+            toret[i] = temp.get(i);
+        }
+
+        return toret;
 
     }
 
