@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="HybridServer" default="release">
+<project name="HybridServer - Final" default="release">
 	<description>
 		HybridServer - Proyecto para la asignatura Desarrollo de Aplicaciones para Internet
 		Curso 2022/2023 - E.S. Enxeñaría Informática (Universidade de Vigo)
-		Primera Entrega
+		Segunda Entrega
 	</description>
 
 	<!-- Poned el número de grupo correcto en esta propiedad -->
+	<!-- En el caso de trabajos individuales, cambiar X.Y por el DNI -->
 	<property name="group" value="Grupo.1.2"/>
 
 	<property name="report.file" value="test.report"/>
@@ -21,10 +22,12 @@
 	</path>
 
 	<target name="test-report">
-		<junit printsummary="false" haltonfailure="false" haltonerror="false" fork="true">
+		<!--pathconvert property="project.classpath.txt" refid="project.classpath"/>
+		<echo message="${project.classpath.txt}"/-->
+		<junit printsummary="true" haltonfailure="false" haltonerror="false" fork="true">
 			<classpath refid="project.classpath"/>
 
-			<test name="es.uvigo.esei.dai.hybridserver.HybridServerFirstReleaseTestSuite"
+			<test name="es.uvigo.esei.dai.hybridserver.HybridServerSecondReleaseTestSuite"
 				haltonfailure="false" haltonerror="false" outfile="${report.file}">
 				<formatter type="xml"/>
 			</test>
@@ -50,6 +53,10 @@
 		<available classname="es.uvigo.esei.dai.hybridserver.http.HTTPParseException" property="exists.exception" classpathref="project.classpath"/>
 		<available classname="es.uvigo.esei.dai.hybridserver.http.HTTPRequestMethod" property="exists.request.method" classpathref="project.classpath"/>
 		<available classname="es.uvigo.esei.dai.hybridserver.http.HTTPResponseStatus" property="exists.response.status" classpathref="project.classpath"/>
+		<available classname="es.uvigo.esei.dai.hybridserver.Configuration" property="exists.configuration" classpathref="project.classpath"/>
+		<available classname="es.uvigo.esei.dai.hybridserver.XMLConfigurationLoader" property="exists.xmlconfigurationloader" classpathref="project.classpath"/>
+		<available file="configuration.xsd" property="exists.configuration.xsd"/>
+		<available file="configuration.xsl" property="exists.configuration.xslt"/>
 	</target>
 
 	<target name="check-launcher" unless="exists.launcher" >
@@ -82,10 +89,32 @@
 		<echo message="Por favor, comprueba que esta clase existe y que está en el paquete correcto."/>
 	</target>
 
-	<target name="check-report" depends="check-essential-files, check-launcher, check-server, check-request, check-response, check-request-method, check-response-status"/>
+	<target name="check-configuration" unless="exists.configuration" >
+		<echo message="No se encuentra la clase es.uvigo.esei.dai.hybridserver.Configuration"/>
+		<echo message="Por favor, comprueba que esta clase existe y que está en el paquete correcto."/>
+	</target>
+
+	<target name="check-xmlconfigurationloader" unless="exists.xmlconfigurationloader" >
+		<echo message="No se encuentra la clase es.uvigo.esei.dai.hybridserver.XMLConfigurationLoader"/>
+		<echo message="Por favor, comprueba que esta clase existe y que está en el paquete correcto."/>
+	</target>
+
+	<target name="check-xsd" unless="exists.configuration.xsd" >
+		<echo message="No se encuentra el esquema 'configuration.xsd'"/>
+		<echo message="Por favor, comprueba que el fichero existe y está en la raíz del proyecto."/>
+	</target>
+
+	<target name="check-xslt" unless="exists.configuration.xslt" >
+		<echo message="No se encuentra la plantilla 'configuration.xsl'"/>
+		<echo message="Por favor, comprueba que el fichero existe y está en la raíz del proyecto."/>
+	</target>
+
+	<target name="check-report" depends="check-essential-files, check-launcher, check-server, check-request, check-response, check-request-method, check-response-status, check-configuration, check-xmlconfigurationloader, check-xsd, check-xslt"/>
 
 	<target name="release" depends="test-report, check-report">
-		<zip destfile="${group}-first.zip">
+		<zip destfile="${group}-second.zip">
+			<zipfileset file="configuration.xsd"/>
+			<zipfileset file="configuration.xsl"/>
 			<zipfileset dir="src" prefix="src"/>
 			<zipfileset dir="${report.dir}"/>
 			<zipfileset file="README.md"/>
