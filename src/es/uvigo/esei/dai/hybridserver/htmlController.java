@@ -7,7 +7,6 @@ import javax.xml.ws.Service;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
 

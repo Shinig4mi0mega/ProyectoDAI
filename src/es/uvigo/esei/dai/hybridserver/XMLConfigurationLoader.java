@@ -30,9 +30,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XMLConfigurationLoader {
-	Configuration configuration = new Configuration();
+	static Configuration configuration = new Configuration();
 
-	public Configuration load(File xmlFile) throws Exception {
+	public static Configuration load(File xmlFile) throws Exception {
 
 		// Construcción del parser del documento
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -74,7 +74,7 @@ public class XMLConfigurationLoader {
 		return configuration;
 	}
 
-	private void handleConections(Node item) throws Exception{
+	private static void handleConections(Node item) throws Exception{
 		NodeList connectionNodes = item.getChildNodes();
 		boolean http = false;
 		String currentNodeName;
@@ -107,7 +107,7 @@ public class XMLConfigurationLoader {
 			throw new Exception();
 	}
 
-	private void handleDatabase(Node item) {
+	private static void handleDatabase(Node item) {
 		NodeList connectionNodes = item.getChildNodes();
 
 		String currentNodeName;
@@ -137,7 +137,7 @@ public class XMLConfigurationLoader {
 		}
 	}
 
-	private void handleServers(Node item) throws Exception {
+	private static void handleServers(Node item) throws Exception {
 		NodeList connectionNodes = item.getChildNodes();
 		List<ServerConfiguration> serverConfigs = new LinkedList<ServerConfiguration>();
 		String currentNodeName;
@@ -154,10 +154,9 @@ public class XMLConfigurationLoader {
 		configuration.setServers(serverConfigs);
 	}
 
-	private ServerConfiguration parseServer(NamedNodeMap serverAtributes) throws Exception {
+	private static ServerConfiguration parseServer(NamedNodeMap serverAtributes) throws Exception {
 		ServerConfiguration config = new ServerConfiguration();
 		String line[];
-		String currentNodeName;
 		int parsedNodes = 0;
 		for (int i = 0; i < serverAtributes.getLength(); i++) {
 

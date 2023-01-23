@@ -125,8 +125,6 @@ public class ServiceThread implements Runnable {
     private HTTPResponse getHandler(HTTPRequest request) {
         HTTPResponse response = new HTTPResponse();
 
-        String Resource = (request).getResourceName();
-
         if (request.getResourceChain().equals("/")) {
             response.setStatus(HTTPResponseStatus.S200);
             response.setContent("<html><head></head><body><p>Hybrid Server</p><h2>Santiago Barca Fernandez</h2><br/><h2>Andres Garcia Figueroa</h2></body>");
@@ -475,7 +473,6 @@ public class ServiceThread implements Runnable {
     private HTTPResponse deleteHandler(HTTPRequest request) {
 
         HTTPResponse response = new HTTPResponse();
-        String Resource = (request).getResourceName();
 
         if (request.getResourceName().equals("html"))
             return HtmlDeleteHandler(request, response);
