@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.UUID;
 
-public class xsltDAO {
+public class XsltDAO {
     Connection connection;
     Properties properties;
     int port;
@@ -17,7 +17,7 @@ public class xsltDAO {
     String user;
     String pass;
 
-    public xsltDAO(Properties properties) {
+    public XsltDAO(Properties properties) {
         // añadir objeto connection
         this.properties = properties;
         this.dburl = properties.getProperty("db.url");
@@ -109,9 +109,9 @@ public class xsltDAO {
 
     }
     
-    public page get(String id) {
+    public Page get(String id) {
     	createConnection(dburl,user,pass);
-        page page = new page();
+        Page page = new Page();
         page.setId(id);
         try (Statement statement = connection.createStatement()) {
             try (ResultSet result = statement.executeQuery("Select * from xslt where uuid=\'" + id + "\'")) {
@@ -134,9 +134,9 @@ public class xsltDAO {
         return page;
     }
 
-    public page getXsdId(String id) {
+    public Page getXsdId(String id) {
     	createConnection(dburl, user, pass);
-        page page = new page();
+        Page page = new Page();
         page.setId(id);
         try (Statement statement = connection.createStatement()) {
             try (ResultSet result = statement.executeQuery("Select xsd from xslt where uuid=\'" + id + "\'")) {

@@ -1,17 +1,17 @@
 package es.uvigo.esei.dai.hybridserver.dao;
 
-public class page {
+public class Page {
     private String id;
     private String Content;
 
     
 
-    public page(String id, String content) {
+    public Page(String id, String content) {
         this.id = id;
         Content = content;
     }
 
-    public page() {
+    public Page() {
         this.id = null;
         Content = null;
     }

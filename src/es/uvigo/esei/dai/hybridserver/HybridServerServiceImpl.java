@@ -1,20 +1,20 @@
 package es.uvigo.esei.dai.hybridserver;
 
-import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xmlDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xsdDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xsltDAO;
+import es.uvigo.esei.dai.hybridserver.dao.HtmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XsdDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XsltDAO;
 
 import javax.jws.WebService;
 @WebService(endpointInterface="es.uvigo.esei.dai.hybridserver.HybridServerService")
 public class HybridServerServiceImpl implements HybridServerService{
 
-    htmlDAO htmldao;
-    xmlDAO xmlDAO;
-    xsdDAO xsdDAO;
-    xsltDAO xsltDAO;
+    HtmlDAO htmldao;
+    XmlDAO xmlDAO;
+    XsdDAO xsdDAO;
+    XsltDAO xsltDAO;
 
-    public HybridServerServiceImpl(htmlDAO htmldao, xmlDAO xmlDAO, xsdDAO xsdDAO, xsltDAO xsltDAO){
+    public HybridServerServiceImpl(HtmlDAO htmldao, XmlDAO xmlDAO, XsdDAO xsdDAO, XsltDAO xsltDAO){
         this.htmldao = htmldao;
         this.xmlDAO = xmlDAO;
         this.xsdDAO = xsdDAO;

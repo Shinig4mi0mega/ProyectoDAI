@@ -8,20 +8,20 @@ import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import es.uvigo.esei.dai.hybridserver.dao.xsltDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XmlDAO;
 
-public class xsltController {
-    private xsltDAO xsltdao;
+public class XmlController {
+    private XmlDAO xmldao;
     private List<ServerConfiguration> serverConfigurations;
 
-    public xsltController(xsltDAO xsltdao){
-        this.xsltdao = xsltdao;
+    public XmlController(XmlDAO xmldao){
+        this.xmldao = xmldao;
     }
 
     public String get(String uuid){
         String toret = "";
         if(exist(uuid)){
-            toret = xsltdao.get(uuid).getContent();
+            toret = xmldao.get(uuid).getContent();
         }
         else{
             int i = 0;
@@ -33,7 +33,7 @@ public class xsltController {
                     Service webService = Service.create(url, name);
                     
                     HybridServerService hs = webService.getPort(HybridServerService.class);
-                    String temp = hs.getXSLTfromUUID(uuid);
+                    String temp = hs.getXMLfromUUID(uuid);
                     if(!temp.equals("")){
                         toret = temp;
                         done = true;
@@ -44,21 +44,20 @@ public class xsltController {
                 }                
             }
         }
-        System.out.println("return "+toret);
         return toret;
     }
 
-    public String addPage(String content, String xsd) {
-        return xsltdao.addPage(content, xsd);
+    public String addPage(String content) {
+        return xmldao.addPage(content);
     }
 
     public void deletePage(String id) {
-        xsltdao.deletePage(id);
+        xmldao.deletePage(id);
     }
 
     public String listPages() {
         String toret = "<html><head></head><body>";
-        toret+=xsltdao.listPages();
+        toret+=xmldao.listPages();
         for(int i = 0; i< serverConfigurations.size(); i++){
             try {
                 URL url = new URL(serverConfigurations.get(i).getWsdl());
@@ -67,7 +66,7 @@ public class xsltController {
                 
                 HybridServerService hs = webService.getPort(HybridServerService.class);
                 toret += "\n";
-                toret+= hs.getAllXSLTUUIDs();
+                toret+= hs.getAllXMLUUIDs();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }                
@@ -76,44 +75,12 @@ public class xsltController {
         return toret;
     }
 
-    public String getXsdId(String id) {
-        String toret = "";
-        
-        if(exist(id)){
-        	System.out.println("EXISTE EL UUID EN ESTE SERVER");
-            toret = xsltdao.getXsdId(id).getContent();
-        }
-        else{
-            int i = 0;
-            boolean done = false;
-            while(i< serverConfigurations.size() && !done){
-                try {
-                    URL url = new URL(serverConfigurations.get(i).getWsdl());
-                    QName name = new QName("http://hybridserver.dai.esei.uvigo.es/",serverConfigurations.get(i).getService()+"ImplService");
-                    Service webService = Service.create(url, name);
-                    
-                    HybridServerService hs = webService.getPort(HybridServerService.class);
-                    String temp = hs.getXSDUUIDfromXSLTUUID(id);
-                    if(!temp.equals("")){
-                        toret = temp;
-                        done = true;
-                    }
-                    i++;
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }                
-            }
-        }
-        System.out.println("return "+toret);
-        return toret;
-    }
-
-    public boolean exist(String id) {
-    	return xsltdao.exist(id);
-        
-    }
-
     public void setServer(List<ServerConfiguration> serverConfigurationList){
         this.serverConfigurations = serverConfigurationList;
+    }
+    public boolean exist(String id) {
+
+        return xmldao.exist(id);
+
     }
 }

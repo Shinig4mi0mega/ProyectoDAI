@@ -3,10 +3,10 @@ package es.uvigo.esei.dai.hybridserver.dao;
 import java.util.Map;
 import java.util.UUID;
 
-public class mapDAO implements pagesDAO {
+public class MapDAO implements PagesDAO {
     private final Map<String, String> pages;
     
-    public mapDAO(Map<String, String> pages) {
+    public MapDAO(Map<String, String> pages) {
         this.pages = pages;
         
     }
@@ -46,9 +46,9 @@ public class mapDAO implements pagesDAO {
     }
 
     @Override
-    public page get(String id) {
+    public Page get(String id) {
         pages.get(id);
-        page page = new page(id, pages.get(id));
+        Page page = new Page(id, pages.get(id));
         return page;
     }
 

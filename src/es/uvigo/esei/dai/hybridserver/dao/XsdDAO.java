@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.UUID;
 
-public class xsdDAO implements pagesDAO {
+public class XsdDAO implements PagesDAO {
 
     Connection connection;
     Properties properties;
@@ -18,7 +18,7 @@ public class xsdDAO implements pagesDAO {
     String user;
     String pass;
 
-    public xsdDAO(Properties properties) {
+    public XsdDAO(Properties properties) {
         // añadir objeto connection
         this.properties = properties;
         this.dburl = properties.getProperty("db.url");
@@ -111,9 +111,9 @@ public class xsdDAO implements pagesDAO {
     }
 
     @Override
-    public page get(String id) {
+    public Page get(String id) {
     	createConnection(dburl,user,pass);
-        page page = new page();
+        Page page = new Page();
         page.setId(id);
         try (Statement statement = connection.createStatement()) {
             try (ResultSet result = statement.executeQuery("Select * from xsd where uuid=\'" + id + "\'")) {

@@ -28,18 +28,18 @@ import java.util.concurrent.Executors;
 
 import javax.xml.ws.Endpoint;
 
-import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
-import es.uvigo.esei.dai.hybridserver.dao.pagesDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xmlDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xsdDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xsltDAO;
+import es.uvigo.esei.dai.hybridserver.dao.HtmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.PagesDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XsdDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XsltDAO;
 
 public class HybridServer {
 	private int SERVICE_PORT = 8888;
 	private Thread serverThread;
 	private boolean stop;
 	private Properties DAOProperties;
-	pagesDAO dao;
+	PagesDAO dao;
 	public int nthreads = 50;
 	private String serviceString;
 	private List<ServerConfiguration> serverConfigurations= new ArrayList<>();
@@ -55,7 +55,7 @@ public class HybridServer {
 		properties.setProperty("db.password", "hsdbpass");
 		
 		DAOProperties = properties;
-		this.dao = new htmlDAO(properties);
+		this.dao = new HtmlDAO(properties);
 		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
 
@@ -104,8 +104,8 @@ public class HybridServer {
 
 	public void start() {
 		if(!serverConfigurations.isEmpty()){
-			this.endpoint = Endpoint.publish(serviceString, new HybridServerServiceImpl(new htmlDAO(DAOProperties), new xmlDAO(DAOProperties), 
-				new xsdDAO(DAOProperties), new xsltDAO(DAOProperties)));
+			this.endpoint = Endpoint.publish(serviceString, new HybridServerServiceImpl(new HtmlDAO(DAOProperties), new XmlDAO(DAOProperties), 
+				new XsdDAO(DAOProperties), new XsltDAO(DAOProperties)));
 		}
 		this.serverThread = new Thread() {
 			@Override

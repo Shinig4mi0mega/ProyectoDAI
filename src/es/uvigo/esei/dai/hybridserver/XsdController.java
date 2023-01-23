@@ -8,20 +8,21 @@ import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XsdDAO;
 
-public class htmlController {
-    private htmlDAO htmldao;
+public class XsdController {
+    private XsdDAO xsddao;
     private List<ServerConfiguration> serverConfigurations;
 
-    public htmlController(htmlDAO htmldao){
-        this.htmldao = htmldao;
+    public XsdController(XsdDAO xsddao){
+        this.xsddao = xsddao;
     }
 
     public String get(String uuid){
         String toret = "";
+        
         if(exist(uuid)){
-            toret = htmldao.get(uuid).getContent();
+            toret = xsddao.get(uuid).getContent();
         }
         else{
             int i = 0;
@@ -33,31 +34,35 @@ public class htmlController {
                     Service webService = Service.create(url, name);
                     
                     HybridServerService hs = webService.getPort(HybridServerService.class);
-                    String temp = hs.getHTMLfromUUID(uuid);
+                    String temp = hs.getXSDfromUUID(uuid);
+                    System.out.println("Respuesta web service "+temp);
+                    
                     if(!temp.equals("")){
                         toret = temp;
                         done = true;
                     }
+                    
                     i++;
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }                
             }
         }
+        System.out.println("return "+toret);
         return toret;
     }
 
     public String addPage(String content) {
-        return htmldao.addPage(content);
+        return xsddao.addPage(content);
     }
 
     public void deletePage(String id) {
-        htmldao.deletePage(id);
+        xsddao.deletePage(id);
     }
 
     public String listPages() {
         String toret = "<html><head></head><body>";
-        toret+=htmldao.listPages();
+        toret+=xsddao.listPages();
         for(int i = 0; i< serverConfigurations.size(); i++){
             try {
                 URL url = new URL(serverConfigurations.get(i).getWsdl());
@@ -66,7 +71,7 @@ public class htmlController {
                 
                 HybridServerService hs = webService.getPort(HybridServerService.class);
                 toret += "\n";
-                toret+= hs.getAllHTMLUUIDs();
+                toret+= hs.getAllXSDUUIDs();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }                
@@ -78,9 +83,10 @@ public class htmlController {
     public void setServer(List<ServerConfiguration> serverConfigurationList){
         this.serverConfigurations = serverConfigurationList;
     }
+
     public boolean exist(String id) {
 
-        return htmldao.exist(id);
+        return xsddao.exist(id);
 
     }
 }

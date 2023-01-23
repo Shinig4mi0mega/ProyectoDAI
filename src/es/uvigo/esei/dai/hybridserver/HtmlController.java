@@ -8,20 +8,20 @@ import javax.xml.ws.Service;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import es.uvigo.esei.dai.hybridserver.dao.xmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.HtmlDAO;
 
-public class xmlController {
-    private xmlDAO xmldao;
+public class HtmlController {
+    private HtmlDAO htmldao;
     private List<ServerConfiguration> serverConfigurations;
 
-    public xmlController(xmlDAO xmldao){
-        this.xmldao = xmldao;
+    public HtmlController(HtmlDAO htmldao){
+        this.htmldao = htmldao;
     }
 
     public String get(String uuid){
         String toret = "";
         if(exist(uuid)){
-            toret = xmldao.get(uuid).getContent();
+            toret = htmldao.get(uuid).getContent();
         }
         else{
             int i = 0;
@@ -33,7 +33,7 @@ public class xmlController {
                     Service webService = Service.create(url, name);
                     
                     HybridServerService hs = webService.getPort(HybridServerService.class);
-                    String temp = hs.getXMLfromUUID(uuid);
+                    String temp = hs.getHTMLfromUUID(uuid);
                     if(!temp.equals("")){
                         toret = temp;
                         done = true;
@@ -48,16 +48,16 @@ public class xmlController {
     }
 
     public String addPage(String content) {
-        return xmldao.addPage(content);
+        return htmldao.addPage(content);
     }
 
     public void deletePage(String id) {
-        xmldao.deletePage(id);
+        htmldao.deletePage(id);
     }
 
     public String listPages() {
         String toret = "<html><head></head><body>";
-        toret+=xmldao.listPages();
+        toret+=htmldao.listPages();
         for(int i = 0; i< serverConfigurations.size(); i++){
             try {
                 URL url = new URL(serverConfigurations.get(i).getWsdl());
@@ -66,7 +66,7 @@ public class xmlController {
                 
                 HybridServerService hs = webService.getPort(HybridServerService.class);
                 toret += "\n";
-                toret+= hs.getAllXMLUUIDs();
+                toret+= hs.getAllHTMLUUIDs();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }                
@@ -80,7 +80,7 @@ public class xmlController {
     }
     public boolean exist(String id) {
 
-        return xmldao.exist(id);
+        return htmldao.exist(id);
 
     }
 }

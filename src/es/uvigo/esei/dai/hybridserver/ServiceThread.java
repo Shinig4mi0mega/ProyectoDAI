@@ -22,10 +22,10 @@ import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;
 
-import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xmlDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xsdDAO;
-import es.uvigo.esei.dai.hybridserver.dao.xsltDAO;
+import es.uvigo.esei.dai.hybridserver.dao.HtmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XsdDAO;
+import es.uvigo.esei.dai.hybridserver.dao.XsltDAO;
 import es.uvigo.esei.dai.hybridserver.http.HTTPParseException;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequest;
 import es.uvigo.esei.dai.hybridserver.http.HTTPRequestMethod;
@@ -35,25 +35,25 @@ import es.uvigo.esei.dai.hybridserver.http.MIME;
 
 public class ServiceThread implements Runnable {
     private Socket socket;
-    private htmlDAO htmlDAO;
-    private xmlDAO xmlDAO;
-    private xsdDAO xsdDAO;
-    private xsltDAO xsltDAO;
-    private htmlController htmlController;
-    private xmlController xmlController;
-    private xsdController xsdController;
-    private xsltController xsltController;
+    private HtmlDAO htmlDAO;
+    private XmlDAO xmlDAO;
+    private XsdDAO xsdDAO;
+    private XsltDAO xsltDAO;
+    private HtmlController htmlController;
+    private XmlController xmlController;
+    private XsdController xsdController;
+    private XsltController xsltController;
 
     public ServiceThread(Socket socket, Properties properties, List<ServerConfiguration> serverConfigurations) {
         this.socket = socket;
-        this.htmlDAO = new htmlDAO(properties);
-        this.xmlDAO = new xmlDAO(properties);
-        this.xsdDAO = new xsdDAO(properties);
-        this.xsltDAO = new xsltDAO(properties);
-        this.htmlController = new htmlController(htmlDAO);
-        this.xmlController = new xmlController(xmlDAO);
-        this.xsdController = new xsdController(xsdDAO);
-        this.xsltController = new xsltController(xsltDAO);
+        this.htmlDAO = new HtmlDAO(properties);
+        this.xmlDAO = new XmlDAO(properties);
+        this.xsdDAO = new XsdDAO(properties);
+        this.xsltDAO = new XsltDAO(properties);
+        this.htmlController = new HtmlController(htmlDAO);
+        this.xmlController = new XmlController(xmlDAO);
+        this.xsdController = new XsdController(xsdDAO);
+        this.xsltController = new XsltController(xsltDAO);
         htmlController.setServer(serverConfigurations);
         xmlController.setServer(serverConfigurations);
         xsdController.setServer(serverConfigurations);

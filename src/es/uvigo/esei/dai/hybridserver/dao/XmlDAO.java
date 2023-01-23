@@ -8,17 +8,16 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.UUID;
 
-public class htmlDAO implements pagesDAO {
-    // añadir objeto connection
+public class XmlDAO implements PagesDAO {
     Connection connection;
     Properties properties;
     int port;
-    
+
     String dburl;
     String user;
     String pass;
-
-    public htmlDAO(Properties properties) {
+    
+    public XmlDAO(Properties properties) {
         // añadir objeto connection
         this.properties = properties;
         this.dburl = properties.getProperty("db.url");
@@ -35,16 +34,13 @@ public class htmlDAO implements pagesDAO {
         } catch (Exception e) {
         }
 	}
-
-	@Override
+    @Override
     public String addPage(String content) {
-		
-		createConnection(dburl,user,pass);
-		
-        UUID randomUuid = UUID.randomUUID();
+        createConnection(dburl,user,pass);
+    	UUID randomUuid = UUID.randomUUID();
         String uuid = randomUuid.toString();
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("INSERT INTO HTML(`uuid`, `content`) VALUES ('" + uuid + "','" + content + "')");
+            statement.executeUpdate("INSERT INTO `xml`(`uuid`, `content`) VALUES ('" + uuid + "','" + content + "')");
 
         } catch (SQLException e) {
         }finally {
@@ -67,9 +63,9 @@ public class htmlDAO implements pagesDAO {
 
     @Override
     public void deletePage(String id) {
-    	createConnection(dburl,user, pass);
+    	createConnection(dburl,user,pass);
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("DELETE FROM HTML WHERE uuid=\'" + id + "\'");
+            statement.executeUpdate("DELETE FROM xml WHERE uuid=\'" + id + "\'");
 
         } catch (SQLException e) {
         }finally {
@@ -90,9 +86,9 @@ public class htmlDAO implements pagesDAO {
     	createConnection(dburl,user,pass);
         StringBuilder toret = new StringBuilder();
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet result = statement.executeQuery("Select uuid from HTML")) {
+            try (ResultSet result = statement.executeQuery("Select uuid from xml")) {
                 while (result.next()) {
-                    toret.append("<a href=http://localhost:").append(port).append("/HTML?uuid=").append(result.getString("uuid")).append(">").append(result.getString("uuid")).append("</a><br/>");
+                    toret.append("<a href=http://localhost:").append(port).append("/xml?uuid=").append(result.getString("uuid")).append(">").append(result.getString("uuid")).append("</a><br/>");
                 }
             }
 
@@ -113,12 +109,12 @@ public class htmlDAO implements pagesDAO {
     }
 
     @Override
-    public page get(String id) {
+    public Page get(String id) {
     	createConnection(dburl,user,pass);
-        page page = new page();
+        Page page = new Page();
         page.setId(id);
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet result = statement.executeQuery("Select * from HTML where uuid=\'" + id + "\'")) {
+            try (ResultSet result = statement.executeQuery("Select * from xml where uuid=\'" + id + "\'")) {
                 result.next();
                 String content = result.getString("content");
                 page.setContent(content);
@@ -143,7 +139,7 @@ public class htmlDAO implements pagesDAO {
     	createConnection(dburl,user,pass);
         String content = null;
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet result = statement.executeQuery("Select * from HTML where uuid=\'" + id + "\'")) {
+            try (ResultSet result = statement.executeQuery("Select * from xml where uuid=\'" + id + "\'")) {
                 result.next();
                 content = result.getString("content");
 
