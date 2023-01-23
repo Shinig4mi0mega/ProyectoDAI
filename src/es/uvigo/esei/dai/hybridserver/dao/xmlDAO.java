@@ -12,6 +12,7 @@ import java.util.UUID;
 public class xmlDAO implements pagesDAO {
     Connection connection;
     Properties properties;
+    int port;
 
     public xmlDAO(Properties properties) {
         // añadir objeto connection
@@ -19,6 +20,7 @@ public class xmlDAO implements pagesDAO {
         String dburl = properties.getProperty("db.url");
         String user = properties.getProperty("db.user");
         String pass = properties.getProperty("db.password");
+        this.port = Integer.parseInt(properties.getProperty("port"));
         try {
             this.connection = DriverManager.getConnection(dburl, user, pass);
         } catch (Exception e) {
@@ -63,8 +65,7 @@ public class xmlDAO implements pagesDAO {
         try (Statement statement = connection.createStatement()) {
             try (ResultSet result = statement.executeQuery("Select uuid from xml")) {
                 while (result.next()) {
-                    String id = result.getString("uuid");
-                    toret.append(id).append("\n");
+                    toret.append("<a href=http://localhost:").append(port).append("/xml?uuid=").append(result.getString("uuid")).append(">").append(result.getString("uuid")).append("</a><br/>");
                 }
             }
 

@@ -13,6 +13,7 @@ public class htmlDAO implements pagesDAO {
     // añadir objeto connection
     Connection connection;
     Properties properties;
+    int port;
 
     public htmlDAO(Properties properties) {
         // añadir objeto connection
@@ -20,6 +21,7 @@ public class htmlDAO implements pagesDAO {
         String dburl = properties.getProperty("db.url");
         String user = properties.getProperty("db.user");
         String pass = properties.getProperty("db.password");
+        this.port = Integer.parseInt(properties.getProperty("port"));
         try {
             this.connection = DriverManager.getConnection(dburl, user, pass);
         } catch (Exception e) {
@@ -32,7 +34,7 @@ public class htmlDAO implements pagesDAO {
         UUID randomUuid = UUID.randomUUID();
         String uuid = randomUuid.toString();
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("INSERT INTO `html`(`uuid`, `content`) VALUES ('" + uuid + "','" + content + "')");
+            statement.executeUpdate("INSERT INTO HTML(`uuid`, `content`) VALUES ('" + uuid + "','" + content + "')");
 
         } catch (SQLException e) {
         }
@@ -49,7 +51,7 @@ public class htmlDAO implements pagesDAO {
     @Override
     public void deletePage(String id) {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("DELETE FROM `html` WHERE uuid=\'" + id + "\'");
+            statement.executeUpdate("DELETE FROM HTML WHERE uuid=\'" + id + "\'");
 
         } catch (SQLException e) {
         }
@@ -62,10 +64,9 @@ public class htmlDAO implements pagesDAO {
         // Devuelve un objeto ResultSet
         StringBuilder toret = new StringBuilder();
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet result = statement.executeQuery("Select uuid from html")) {
+            try (ResultSet result = statement.executeQuery("Select uuid from HTML")) {
                 while (result.next()) {
-                    String id = result.getString("uuid");
-                    toret.append(id).append("\n");
+                    toret.append("<a href=http://localhost:").append(port).append("/html?uuid=").append(result.getString("uuid")).append(">").append(result.getString("uuid")).append("</a><br/>");
                 }
             }
 
@@ -83,7 +84,7 @@ public class htmlDAO implements pagesDAO {
         page page = new page();
         page.setId(id);
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet result = statement.executeQuery("Select * from html where uuid=\'" + id + "\'")) {
+            try (ResultSet result = statement.executeQuery("Select * from HTML where uuid=\'" + id + "\'")) {
                 result.next();
                 String content = result.getString("content");
                 page.setContent(content);
@@ -100,7 +101,7 @@ public class htmlDAO implements pagesDAO {
     public boolean exist(String id) {
         String content = null;
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet result = statement.executeQuery("Select * from html where uuid=\'" + id + "\'")) {
+            try (ResultSet result = statement.executeQuery("Select * from HTML where uuid=\'" + id + "\'")) {
                 result.next();
                 content = result.getString("content");
 

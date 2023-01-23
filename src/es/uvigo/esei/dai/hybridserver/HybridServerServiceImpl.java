@@ -35,31 +35,31 @@ public class HybridServerServiceImpl implements HybridServerService{
     }
     public String getHTMLfromUUID(String uuid){
         if (!htmldao.exist(uuid)) {
-            return null;
+            return "";
         }
         return htmldao.get(uuid).getContent();
     }
     public String getXMLfromUUID(String uuid){
         if (!xmlDAO.exist(uuid)) {
-            return null;
+            return "";
         }
         return xmlDAO.get(uuid).getContent();
     }
     public String getXSDfromUUID(String uuid){
         if (!xsdDAO.exist(uuid)) {
-            return null;
+            return "";
         }
         return xsdDAO.get(uuid).getContent();
     }
     public String getXSLTfromUUID(String uuid){
         if (!xsltDAO.exist(uuid)) {
-            return null;
+            return "";
         }
         return xsltDAO.get(uuid).getContent();
     }
     public String getXSDUUIDfromXSLTUUID(String uuid){
         if (!xsltDAO.exist(uuid)) {
-            return null;
+            return "";
         }
         return xsltDAO.getXsdId(uuid).getId();
     }

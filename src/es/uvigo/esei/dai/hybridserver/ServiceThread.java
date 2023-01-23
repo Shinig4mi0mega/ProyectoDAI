@@ -129,7 +129,7 @@ public class ServiceThread implements Runnable {
 
         if (request.getResourceChain().equals("/")) {
             response.setStatus(HTTPResponseStatus.S200);
-            response.setContent("Hybrid Server");
+            response.setContent("<html><head></head><body><p>HYBRID SERVER</p><h2>Santiago Barca Fernandez</h2><br/><h2>Andres Garcia Figueroa</h2></body>");
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }

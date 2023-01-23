@@ -1,6 +1,12 @@
 package es.uvigo.esei.dai.hybridserver;
 
 import java.util.List;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import es.uvigo.esei.dai.hybridserver.dao.xsltDAO;
@@ -14,7 +20,31 @@ public class xsltController {
     }
 
     public String get(String uuid){
-        String toret = xsltdao.get(uuid).getContent();
+        String toret = "";
+        if(exist(uuid)){
+            toret = xsltdao.get(uuid).getContent();
+        }
+        else{
+            int i = 0;
+            boolean done = false;
+            while(i< serverConfigurations.size() && !done){
+                try {
+                    URL url = new URL(serverConfigurations.get(i).getWsdl());
+                    QName name = new QName("http://hybridserver.dai.esei.uvigo.es/",serverConfigurations.get(i).getService()+"ImplService");
+                    Service webService = Service.create(url, name);
+                    
+                    HybridServerService hs = webService.getPort(HybridServerService.class);
+                    String temp = hs.getXSLTfromUUID(uuid);
+                    if(!temp.equals("")){
+                        toret = temp;
+                        done = true;
+                    }
+                    i++;
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }                
+            }
+        }
         return toret;
     }
 
@@ -27,11 +57,52 @@ public class xsltController {
     }
 
     public String listPages() {
-        return xsltdao.listPages();
+        String toret = "<html><head></head><body>";
+        toret+=xsltdao.listPages();
+        for(int i = 0; i< serverConfigurations.size(); i++){
+            try {
+                URL url = new URL(serverConfigurations.get(i).getWsdl());
+                QName name = new QName("http://hybridserver.dai.esei.uvigo.es/",serverConfigurations.get(i).getService()+"ImplService");
+                Service webService = Service.create(url, name);
+                
+                HybridServerService hs = webService.getPort(HybridServerService.class);
+                toret += "\n";
+                toret+= hs.getAllXSLTUUIDs();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }                
+        }
+        toret+= "</body></html>";
+        return toret;
     }
 
     public String getXsdId(String id) {
-        return xsltdao.getXsdId(id).getContent();
+        String toret = "";
+        if(exist(id)){
+            toret = xsltdao.getXsdId(id).getContent();
+        }
+        else{
+            int i = 0;
+            boolean done = false;
+            while(i< serverConfigurations.size() && !done){
+                try {
+                    URL url = new URL(serverConfigurations.get(i).getWsdl());
+                    QName name = new QName("http://hybridserver.dai.esei.uvigo.es/",serverConfigurations.get(i).getService()+"ImplService");
+                    Service webService = Service.create(url, name);
+                    
+                    HybridServerService hs = webService.getPort(HybridServerService.class);
+                    String temp = hs.getXSDUUIDfromXSLTUUID(id);
+                    if(!temp.equals("")){
+                        toret = temp;
+                        done = true;
+                    }
+                    i++;
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }                
+            }
+        }
+        return toret;
     }
 
     public boolean exist(String id) {
@@ -39,7 +110,7 @@ public class xsltController {
         return xsltdao.exist(id);
 
     }
-    
+
     public void setServer(List<ServerConfiguration> serverConfigurationList){
         this.serverConfigurations = serverConfigurationList;
     }
