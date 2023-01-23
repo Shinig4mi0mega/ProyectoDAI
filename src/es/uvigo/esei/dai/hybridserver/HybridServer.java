@@ -20,12 +20,19 @@ package es.uvigo.esei.dai.hybridserver;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.xml.ws.Endpoint;
+
 import es.uvigo.esei.dai.hybridserver.dao.htmlDAO;
 import es.uvigo.esei.dai.hybridserver.dao.pagesDAO;
+import es.uvigo.esei.dai.hybridserver.dao.xmlDAO;
+import es.uvigo.esei.dai.hybridserver.dao.xsdDAO;
+import es.uvigo.esei.dai.hybridserver.dao.xsltDAO;
 
 public class HybridServer {
 	private int SERVICE_PORT = 8888;
@@ -34,6 +41,9 @@ public class HybridServer {
 	private Properties DAOProperties;
 	pagesDAO dao;
 	public int nthreads = 50;
+	private String serviceString;
+	private List<ServerConfiguration> serverConfigurations;
+	private Endpoint endpoint;
 
 	public HybridServer() {
 		Properties properties = new Properties();
@@ -61,6 +71,16 @@ public class HybridServer {
 	public HybridServer(Configuration config) {
 		this.nthreads = config.getNumClients();
 
+		this.serviceString = config.getWebServiceURL();
+
+		this.serverConfigurations = new ArrayList<>();
+
+		for(ServerConfiguration temp: config.getServers()){
+			if(!temp.getName().equals("Down Server")){
+				serverConfigurations.add(temp);
+			}
+		}
+		
 		Properties dBProperties = new Properties();
 		dBProperties.setProperty("db.url", config.getDbURL());
 		dBProperties.setProperty("db.user", config.getDbUser());
@@ -77,6 +97,10 @@ public class HybridServer {
 	}
 
 	public void start() {
+		if(serverConfigurations != null){
+			this.endpoint = Endpoint.publish(serviceString, new HybridServerServiceImpl(new htmlDAO(DAOProperties), new xmlDAO(DAOProperties), 
+				new xsdDAO(DAOProperties), new xsltDAO(DAOProperties)));
+		}
 		this.serverThread = new Thread() {
 			@Override
 			public void run() {
@@ -103,6 +127,10 @@ public class HybridServer {
 
 	public void stop() {
 		this.stop = true;
+
+		if(this.endpoint != null){
+			endpoint.stop();
+		}
 
 		try (Socket socket = new Socket("localhost", SERVICE_PORT)) {
 			// Esta conexión se hace, simplemente, para "despertar" el hilo servidor

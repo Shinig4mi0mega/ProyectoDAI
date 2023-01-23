@@ -77,29 +77,6 @@ public class xmlDAO implements pagesDAO {
 
     }
 
-    public String[] listPagesArray() {
-        // statement.executeQuery para traer solo cosas
-        // Devuelve un objeto ResultSet
-        ArrayList<String> temp = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            try (ResultSet result = statement.executeQuery("Select uuid from xml")) {
-                while (result.next()) {
-                    String id = result.getString("uuid");
-                    temp.add(id);
-                }
-            }
-
-        } catch (SQLException e) {
-        }
-        String[] toret = new String[temp.size()];
-        for (int i = 0; i<temp.size(); i++){
-            toret[i] = temp.get(i);
-        }
-
-        return toret;
-
-    }
-
     @Override
     public page get(String id) {
         page page = new page();
