@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.ws.Endpoint;
 
@@ -44,6 +45,7 @@ public class HybridServer {
 	private String serviceString;
 	private List<ServerConfiguration> serverConfigurations= new ArrayList<>();
 	private Endpoint endpoint;
+	ExecutorService threadPool;
 
 	public HybridServer() {
 		System.out.println("EMPTY");
@@ -111,7 +113,7 @@ public class HybridServer {
 			@Override
 			public void run() {
 				try (final ServerSocket serverSocket = new ServerSocket(SERVICE_PORT)) {
-					ExecutorService threadPool = Executors.newFixedThreadPool(nthreads);
+					threadPool = Executors.newFixedThreadPool(nthreads);
 					while (true) {
 
 						Socket socket = serverSocket.accept();
@@ -134,6 +136,7 @@ public class HybridServer {
 	public void stop() {
 		this.stop = true;
 
+
 		if(endpoint != null){
 			endpoint.stop();
 		}
@@ -146,6 +149,10 @@ public class HybridServer {
 
 		try {
 			this.serverThread.join();
+			if(threadPool != null){
+				threadPool.shutdownNow();
+				threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);
+			}
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
