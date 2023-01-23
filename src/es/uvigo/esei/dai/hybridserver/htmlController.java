@@ -29,4 +29,13 @@ public class htmlController {
     public String listPages() {
         return htmldao.listPages();
     }
+
+    public void setServer(List<ServerConfiguration> serverConfigurationList){
+        this.serverConfigurations = serverConfigurationList;
+    }
+    public boolean exist(String id) {
+
+        return htmldao.exist(id);
+
+    }
 }

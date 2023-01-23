@@ -29,4 +29,14 @@ public class xsdController {
     public String listPages() {
         return xsddao.listPages();
     }
+
+    public void setServer(List<ServerConfiguration> serverConfigurationList){
+        this.serverConfigurations = serverConfigurationList;
+    }
+
+    public boolean exist(String id) {
+
+        return xsddao.exist(id);
+
+    }
 }

@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.Socket;
+import java.util.List;
 import java.util.Properties;
 
 import javax.xml.XMLConstants;
@@ -34,18 +35,29 @@ import es.uvigo.esei.dai.hybridserver.http.MIME;
 
 public class ServiceThread implements Runnable {
     private Socket socket;
-    private htmlDAO htmldao;
+    private htmlDAO htmlDAO;
     private xmlDAO xmlDAO;
     private xsdDAO xsdDAO;
     private xsltDAO xsltDAO;
+    private htmlController htmlController;
+    private xmlController xmlController;
+    private xsdController xsdController;
+    private xsltController xsltController;
 
-    public ServiceThread(Socket socket, Properties properties) {
-
+    public ServiceThread(Socket socket, Properties properties, List<ServerConfiguration> serverConfigurations) {
         this.socket = socket;
-        this.htmldao = new htmlDAO(properties);
+        this.htmlDAO = new htmlDAO(properties);
         this.xmlDAO = new xmlDAO(properties);
         this.xsdDAO = new xsdDAO(properties);
         this.xsltDAO = new xsltDAO(properties);
+        this.htmlController = new htmlController(htmlDAO);
+        this.xmlController = new xmlController(xmlDAO);
+        this.xsdController = new xsdController(xsdDAO);
+        this.xsltController = new xsltController(xsltDAO);
+        htmlController.setServer(serverConfigurations);
+        xmlController.setServer(serverConfigurations);
+        xsdController.setServer(serverConfigurations);
+        xsltController.setServer(serverConfigurations);
     }
 
     @Override
@@ -154,21 +166,21 @@ public class ServiceThread implements Runnable {
         // si no hay, devolvmos lista
         if (uuid == null) {
 
-            response.setContent(xsltDAO.listPages());
+            response.setContent(xsltController.listPages());
             response.setStatus(HTTPResponseStatus.S200);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
 
         }
 
-        if (!xsltDAO.exist(uuid)) {
+        if (!xsltController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
 
-        response.setContent(xsltDAO.get(uuid).getContent());
+        response.setContent(xsltController.get(uuid));
         response.setStatus(HTTPResponseStatus.S200);
 
         response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
@@ -186,21 +198,21 @@ public class ServiceThread implements Runnable {
         // si no hay, devolvmos lista
         if (uuid == null) {
 
-            response.setContent(xsdDAO.listPages());
+            response.setContent(xsdController.listPages());
             response.setStatus(HTTPResponseStatus.S200);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
 
         }
 
-        if (!xsdDAO.exist(uuid)) {
+        if (!xsdController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
 
-        response.setContent(xsdDAO.get(uuid).getContent());
+        response.setContent(xsdController.get(uuid));
         response.setStatus(HTTPResponseStatus.S200);
 
         response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
@@ -218,14 +230,14 @@ public class ServiceThread implements Runnable {
         // si no hay, devolvmos lista
         if (uuid == null) {
 
-            response.setContent(xmlDAO.listPages());
+            response.setContent(xmlController.listPages());
             response.setStatus(HTTPResponseStatus.S200);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
 
         }
 
-        if (!xmlDAO.exist(uuid)) {
+        if (!xmlController.exist(uuid)) {
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
@@ -233,17 +245,17 @@ public class ServiceThread implements Runnable {
 
         if (request.getResourceParameters().keySet().contains("xslt")) {
             String content = "";
-            String xml = xmlDAO.get(uuid).getContent();
+            String xml = xmlController.get(uuid);
 
             // VERIFICACIONES DEL XSLT Y XSD--------------------------------
-            if (!(xsltDAO.exist(request.getResourceParameters().get("xslt")))) {
+            if (!(xsltController.exist(request.getResourceParameters().get("xslt")))) {
                 response.setStatus(HTTPResponseStatus.S404);
                 response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
                 return response;
             }
 
-            String xsdUuid = xsltDAO.getXsdId(request.getResourceParameters().get("xslt")).getContent();
-            String xsd = xsdDAO.get(xsdUuid).getContent();
+            String xsdUuid = xsltController.getXsdId(request.getResourceParameters().get("xslt"));
+            String xsd = xsdController.get(xsdUuid);
 
             if (!validateXML(xml, xsd)) {
                 response.setStatus(HTTPResponseStatus.S400);
@@ -253,7 +265,7 @@ public class ServiceThread implements Runnable {
 
             // VERIFICACIONES DEL XSLT Y XSD-----------------------------------
 
-            String xsltContent = xsltDAO.get(request.getResourceParameters().get("xslt")).getContent();
+            String xsltContent = xsltController.get(request.getResourceParameters().get("xslt"));
             try {
                 content = parseXmlToHtml(xml, xsltContent);
             } catch (Exception e) {
@@ -265,7 +277,7 @@ public class ServiceThread implements Runnable {
             return response;
         }
 
-        response.setContent(xmlDAO.get(uuid).getContent());
+        response.setContent(xmlController.get(uuid));
         response.setStatus(HTTPResponseStatus.S200);
         response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
 
@@ -311,21 +323,21 @@ public class ServiceThread implements Runnable {
         // si no hay, devolvmos lista
         if (uuid == null) {
 
-            response.setContent(htmldao.listPages());
+            response.setContent(htmlController.listPages());
             response.setStatus(HTTPResponseStatus.S200);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
 
         }
 
-        if (!htmldao.exist(uuid)) {
+        if (!htmlController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
 
-        response.setContent(htmldao.get(uuid).getContent());
+        response.setContent(htmlController.get(uuid));
         response.setStatus(HTTPResponseStatus.S200);
 
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
@@ -361,7 +373,7 @@ public class ServiceThread implements Runnable {
     private HTTPResponse XsltDeleteHandler(HTTPRequest request, HTTPResponse response) {
         String uuid = request.getResourceParameters().get("uuid");
 
-        if (!xsltDAO.exist(uuid)) {
+        if (!xsltController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
@@ -369,7 +381,7 @@ public class ServiceThread implements Runnable {
             return response;
         }
 
-        xsltDAO.deletePage(uuid);
+        xsltController.deletePage(uuid);
         response.setStatus(HTTPResponseStatus.S200);
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
 
@@ -379,7 +391,7 @@ public class ServiceThread implements Runnable {
     private HTTPResponse XsdDeleteHandler(HTTPRequest request, HTTPResponse response) {
         String uuid = request.getResourceParameters().get("uuid");
 
-        if (!xsdDAO.exist(uuid)) {
+        if (!xsdController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
@@ -387,7 +399,7 @@ public class ServiceThread implements Runnable {
             return response;
         }
 
-        xsdDAO.deletePage(uuid);
+        xsdController.deletePage(uuid);
         response.setStatus(HTTPResponseStatus.S200);
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
 
@@ -397,7 +409,7 @@ public class ServiceThread implements Runnable {
     private HTTPResponse XmlDeleteHandler(HTTPRequest request, HTTPResponse response) {
         String uuid = request.getResourceParameters().get("uuid");
 
-        if (!xmlDAO.exist(uuid)) {
+        if (!xmlController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
@@ -405,7 +417,7 @@ public class ServiceThread implements Runnable {
             return response;
         }
 
-        xmlDAO.deletePage(uuid);
+        xmlController.deletePage(uuid);
         response.setStatus(HTTPResponseStatus.S200);
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
 
@@ -415,7 +427,7 @@ public class ServiceThread implements Runnable {
     private HTTPResponse HtmlDeleteHandler(HTTPRequest request, HTTPResponse response) {
         String uuid = request.getResourceParameters().get("uuid");
 
-        if (!htmldao.exist(uuid)) {
+        if (!htmlController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
@@ -423,7 +435,7 @@ public class ServiceThread implements Runnable {
             return response;
         }
 
-        htmldao.deletePage(uuid);
+        htmlController.deletePage(uuid);
 
         response.setStatus(HTTPResponseStatus.S200);
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
@@ -448,7 +460,7 @@ public class ServiceThread implements Runnable {
         String link = "";
 
         if (request.getResourceName().equals("xml")) {
-            uuid = xmlDAO.addPage(content);
+            uuid = xmlController.addPage(content);
             link = buildXMLLink(uuid);
         }
 
@@ -459,12 +471,12 @@ public class ServiceThread implements Runnable {
                 response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
                 return response;
             }
-            uuid = htmldao.addPage(content);
+            uuid = htmlController.addPage(content);
             link = buildHTMLLink(uuid);
         }
 
         if (request.getResourceName().equals("xsd")) {
-            uuid = xsdDAO.addPage(content);
+            uuid = xsdController.addPage(content);
             link = buildXSDLink(uuid);
         }
 
@@ -477,13 +489,13 @@ public class ServiceThread implements Runnable {
 
             String xsd = request.getResourceParameters().get("xsd");
             String xslt = request.getResourceParameters().get("xslt");
-            System.out.println(!xsdDAO.exist(xsd));
-            if (!xsdDAO.exist(xsd)) {
+            System.out.println(!xsdController.exist(xsd));
+            if (!xsdController.exist(xsd)) {
                 response.setStatus(HTTPResponseStatus.S404);
                 return response;
             }
 
-            uuid = xsltDAO.addPage(xslt, xsd);
+            uuid = xsltController.addPage(xslt, xsd);
             link = buildXSLTLink(uuid);
         }
 

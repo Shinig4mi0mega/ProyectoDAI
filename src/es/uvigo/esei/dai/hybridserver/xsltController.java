@@ -29,4 +29,18 @@ public class xsltController {
     public String listPages() {
         return xsltdao.listPages();
     }
+
+    public String getXsdId(String id) {
+        return xsltdao.getXsdId(id).getContent();
+    }
+
+    public boolean exist(String id) {
+
+        return xsltdao.exist(id);
+
+    }
+    
+    public void setServer(List<ServerConfiguration> serverConfigurationList){
+        this.serverConfigurations = serverConfigurationList;
+    }
 }

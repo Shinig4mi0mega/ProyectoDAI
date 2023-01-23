@@ -29,4 +29,13 @@ public class xmlController {
     public String listPages() {
         return xmldao.listPages();
     }
+
+    public void setServer(List<ServerConfiguration> serverConfigurationList){
+        this.serverConfigurations = serverConfigurationList;
+    }
+    public boolean exist(String id) {
+
+        return xmldao.exist(id);
+
+    }
 }

@@ -111,7 +111,7 @@ public class HybridServer {
 						Socket socket = serverSocket.accept();
 						if (stop)
 							break;
-						ServiceThread st = new ServiceThread(socket, DAOProperties);
+						ServiceThread st = new ServiceThread(socket, DAOProperties, serverConfigurations);
 						threadPool.execute(st);
 
 					}
