@@ -42,10 +42,11 @@ public class HybridServer {
 	pagesDAO dao;
 	public int nthreads = 50;
 	private String serviceString;
-	private List<ServerConfiguration> serverConfigurations;
+	private List<ServerConfiguration> serverConfigurations= new ArrayList<>();
 	private Endpoint endpoint;
 
 	public HybridServer() {
+		System.out.println("EMPTY");
 		Properties properties = new Properties();
 		properties.setProperty("port", Integer.toString(8888));
 		properties.setProperty("numClients", "50");
@@ -53,6 +54,7 @@ public class HybridServer {
 		properties.setProperty("db.user", "hsdb");
 		properties.setProperty("db.password", "hsdbpass");
 		
+		DAOProperties = properties;
 		this.dao = new htmlDAO(properties);
 		this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
@@ -62,13 +64,16 @@ public class HybridServer {
 	//}
 
 	public HybridServer(Properties properties) {
+		System.out.println("Propertioes");
 		this.nthreads = Integer.parseInt(properties.getProperty("numClients"));
 		DAOProperties = properties;
 		if (properties.getProperty("port") != null)
+			System.out.println("Hay puerto");
 			this.SERVICE_PORT = Integer.parseInt(properties.getProperty("port"));
 	}
 
 	public HybridServer(Configuration config) {
+		System.out.println("Configuration");
 		this.nthreads = config.getNumClients();
 
 		this.serviceString = config.getWebServiceURL();
@@ -85,6 +90,7 @@ public class HybridServer {
 		dBProperties.setProperty("db.url", config.getDbURL());
 		dBProperties.setProperty("db.user", config.getDbUser());
 		dBProperties.setProperty("db.password", config.getDbPassword());
+		dBProperties.setProperty("port", Integer.toString(config.getHttpPort()));
 
 		DAOProperties = dBProperties;
 		
@@ -97,7 +103,7 @@ public class HybridServer {
 	}
 
 	public void start() {
-		if(serverConfigurations != null){
+		if(!serverConfigurations.isEmpty()){
 			this.endpoint = Endpoint.publish(serviceString, new HybridServerServiceImpl(new htmlDAO(DAOProperties), new xmlDAO(DAOProperties), 
 				new xsdDAO(DAOProperties), new xsltDAO(DAOProperties)));
 		}
@@ -128,7 +134,7 @@ public class HybridServer {
 	public void stop() {
 		this.stop = true;
 
-		if(this.endpoint != null){
+		if(endpoint != null){
 			endpoint.stop();
 		}
 

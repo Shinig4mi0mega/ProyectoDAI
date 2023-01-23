@@ -21,6 +21,7 @@ public class xsdController {
 
     public String get(String uuid){
         String toret = "";
+        
         if(exist(uuid)){
             toret = xsddao.get(uuid).getContent();
         }
@@ -35,16 +36,20 @@ public class xsdController {
                     
                     HybridServerService hs = webService.getPort(HybridServerService.class);
                     String temp = hs.getXSDfromUUID(uuid);
+                    System.out.println("Respuesta web service "+temp);
+                    
                     if(!temp.equals("")){
                         toret = temp;
                         done = true;
                     }
+                    
                     i++;
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }                
             }
         }
+        System.out.println("return "+toret);
         return toret;
     }
 

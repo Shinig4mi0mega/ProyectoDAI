@@ -13,22 +13,31 @@ public class xsltDAO {
     Connection connection;
     Properties properties;
     int port;
+    
+    String dburl;
+    String user;
+    String pass;
 
     public xsltDAO(Properties properties) {
         // añadir objeto connection
         this.properties = properties;
-        String dburl = properties.getProperty("db.url");
-        String user = properties.getProperty("db.user");
-        String pass = properties.getProperty("db.password");
+        this.dburl = properties.getProperty("db.url");
+        this.user = properties.getProperty("db.user");
+        this.pass = properties.getProperty("db.password");
+        
         this.port = Integer.parseInt(properties.getProperty("port"));
-        try {
+    }
+
+    public void createConnection(String dburl, String user, String pass) {
+    	try {
+        	System.out.println("CONNECTION");
             this.connection = DriverManager.getConnection(dburl, user, pass);
         } catch (Exception e) {
         }
-
-    }
+	}
 
     public String addPage(String content,String xsd) {
+    	createConnection(dburl,user,pass);
         UUID randomUuid = UUID.randomUUID();
         String uuid = randomUuid.toString();
         try (Statement statement = connection.createStatement()) {
@@ -36,6 +45,13 @@ public class xsltDAO {
 
         } catch (SQLException e) {
             System.out.println(e.getErrorCode());
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         return uuid;
@@ -49,10 +65,18 @@ public class xsltDAO {
 
     
     public void deletePage(String id) {
+    	createConnection(dburl,user,pass);
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM xslt WHERE uuid=\'" + id + "\'");
 
         } catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
     }
@@ -61,6 +85,7 @@ public class xsltDAO {
     public String listPages() {
         // statement.executeQuery para traer solo cosas
         // Devuelve un objeto ResultSet
+    	createConnection(dburl,user,pass);
         StringBuilder toret = new StringBuilder();
         try (Statement statement = connection.createStatement()) {
             try (ResultSet result = statement.executeQuery("Select uuid from xslt")) {
@@ -70,6 +95,13 @@ public class xsltDAO {
             }
 
         } catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         System.out.println(toret);
@@ -79,6 +111,7 @@ public class xsltDAO {
     }
     
     public page get(String id) {
+    	createConnection(dburl,user,pass);
         page page = new page();
         page.setId(id);
         try (Statement statement = connection.createStatement()) {
@@ -90,23 +123,39 @@ public class xsltDAO {
             }
 
         } catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         return page;
     }
 
     public page getXsdId(String id) {
+    	createConnection(dburl, user, pass);
         page page = new page();
         page.setId(id);
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet result = statement.executeQuery("Select * from xslt where uuid=\'" + id + "\'")) {
+            try (ResultSet result = statement.executeQuery("Select xsd from xslt where uuid=\'" + id + "\'")) {
                 result.next();
+                System.out.println("RESULT");
                 String content = result.getString("xsd");
+                System.out.println(content);
                 page.setContent(content);
-
             }
 
         } catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         return page;
@@ -114,6 +163,7 @@ public class xsltDAO {
 
     
     public boolean exist(String id) {
+    	createConnection(dburl,user,pass);
         String content = null;
         try (Statement statement = connection.createStatement()) {
             try (ResultSet result = statement.executeQuery("Select * from xslt where uuid=\'" + id + "\'")) {
@@ -122,6 +172,13 @@ public class xsltDAO {
 
             }
         }catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         //System.out.println(content);

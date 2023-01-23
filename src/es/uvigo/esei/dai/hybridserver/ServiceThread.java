@@ -129,7 +129,7 @@ public class ServiceThread implements Runnable {
 
         if (request.getResourceChain().equals("/")) {
             response.setStatus(HTTPResponseStatus.S200);
-            response.setContent("<html><head></head><body><p>HYBRID SERVER</p><h2>Santiago Barca Fernandez</h2><br/><h2>Andres Garcia Figueroa</h2></body>");
+            response.setContent("<html><head></head><body><p>Hybrid Server</p><h2>Santiago Barca Fernandez</h2><br/><h2>Andres Garcia Figueroa</h2></body>");
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
         }
@@ -173,19 +173,28 @@ public class ServiceThread implements Runnable {
 
         }
 
-        if (!xsltController.exist(uuid)) {
+        /*if (!xsltController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
+        }*/
+        
+        String ctrResponse= xsltController.get(uuid); 
+
+        if(ctrResponse.equals("")) {
+        	//NO ha habido respuesta en ningun servidor
+        	response.setStatus(HTTPResponseStatus.S404);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            return response;
+        }else {   
+        	response.setContent(xsltController.get(uuid));
+        	response.setStatus(HTTPResponseStatus.S200);
+
+        	response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
+
+        	return response;
         }
-
-        response.setContent(xsltController.get(uuid));
-        response.setStatus(HTTPResponseStatus.S200);
-
-        response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
-
-        return response;
     }
 
     private HTTPResponse XsdGetHandler(HTTPRequest request, HTTPResponse response) {
@@ -205,19 +214,21 @@ public class ServiceThread implements Runnable {
 
         }
 
-        if (!xsdController.exist(uuid)) {
+        String ctrResponse= xsdController.get(uuid); 
 
-            response.setStatus(HTTPResponseStatus.S404);
+        if(ctrResponse.equals("")) {
+        	//NO ha habido respuesta en ningun servidor
+        	response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
+        }else {   
+        	response.setContent(ctrResponse);
+        	response.setStatus(HTTPResponseStatus.S200);
+
+        	response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
+
+        	return response;
         }
-
-        response.setContent(xsdController.get(uuid));
-        response.setStatus(HTTPResponseStatus.S200);
-
-        response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
-
-        return response;
     }
 
     private HTTPResponse XmlGetHandler(HTTPRequest request, HTTPResponse response) {
@@ -237,54 +248,151 @@ public class ServiceThread implements Runnable {
 
         }
 
-        if (!xmlController.exist(uuid)) {
+        ///////////////////////////////////////////////////////////////////////////////////
+        /*if (!xmlController.exist(uuid)) {
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
-        }
+        }*/
 
-        if (request.getResourceParameters().keySet().contains("xslt")) {
-            String content = "";
-            String xml = xmlController.get(uuid);
+        /*
+        String ctrResponse= xmlController.get(uuid); 
 
-            // VERIFICACIONES DEL XSLT Y XSD--------------------------------
-            if (!(xsltController.exist(request.getResourceParameters().get("xslt")))) {
-                response.setStatus(HTTPResponseStatus.S404);
-                response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
-                return response;
-            }
-
-            String xsdUuid = xsltController.getXsdId(request.getResourceParameters().get("xslt"));
-            String xsd = xsdController.get(xsdUuid);
-
-            if (!validateXML(xml, xsd)) {
-                response.setStatus(HTTPResponseStatus.S400);
-                response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
-                return response;
-            }
-
-            // VERIFICACIONES DEL XSLT Y XSD-----------------------------------
-
-            String xsltContent = xsltController.get(request.getResourceParameters().get("xslt"));
-            try {
-                content = parseXmlToHtml(xml, xsltContent);
-            } catch (Exception e) {
-            }
-
-            response.setContent(content);
-            response.setStatus(HTTPResponseStatus.S200);
+        if(ctrResponse.equals("")) {
+        	System.out.println("NO ha habido respuesta en ningun servidor");
+        	response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
             return response;
+        }else {  
+        	System.out.println("HA habido respuesta en algun servidor");
+        	
+        	if (request.getResourceParameters().keySet().contains("xslt")) {
+        		System.out.println("CONTIENE XSLT");
+        		
+        		String content = "";
+        		String xml = xmlController.get(uuid);
+
+        		String uuidXSLT= request.getResourceParameters().get("xslt");
+        		
+        		System.out.println("UUID XSLT"+uuidXSLT);
+        		String ctrResponseXSLT= xsltController.get(uuidXSLT);
+            
+        		// VERIFICACIONES DEL XSLT Y XSD--------------------------------
+        		if (ctrResponseXSLT.equals("")) {
+        			System.out.println("NO EXISTE XSLT, 404");
+        			response.setStatus(HTTPResponseStatus.S404);
+        			response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+        			return response;
+        		}else {
+        			System.out.println("EXISTE XSLT, SEGUIMOS");
+        			String xsdUuid = xsltController.getXsdId(request.getResourceParameters().get("xslt"));
+            		System.out.println("XSD UUID: "+xsdUuid);
+            		
+            		String ctrControllerxsd= xsdController.get(xsdUuid);
+            		System.out.println("XSD: "+ctrControllerxsd);
+            		
+            			if (!validateXML(xml, ctrControllerxsd)) {
+            				System.out.println("XSD NO VALIDA XML");
+            				response.setStatus(HTTPResponseStatus.S400);
+            				response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            				return response;
+                        
+            			}else {
+            				// VERIFICACIONES DEL XSLT Y XSD-----------------------------------
+            				System.out.println("XSD VALIDA XML, SE DEVUELVE HTML");
+            				String xsltContent = xsltController.get(request.getResourceParameters().get("xslt"));
+            				try {
+            					content = parseXmlToHtml(xml, xsltContent);
+            				} catch (Exception e) {
+            				System.err.println("ROJO SOY E INFELIZ ESTOY");
+            				}
+
+            				response.setContent(content);
+            				response.setStatus(HTTPResponseStatus.S200);
+            				response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            				return response;
+            			}
+            		}
+        	}else {
+        		System.out.println("NO EXISTE XSLT");
+        		response.setContent(xmlController.get(uuid));
+        		response.setStatus(HTTPResponseStatus.S200);
+        		response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
+
+        		return response;
+        	}
+        }*/
+        
+        String ctrResponse= xmlController.get(uuid); 
+
+        if(ctrResponse.equals("")) {
+        	System.out.println("NO ha habido respuesta en ningun servidor");
+        	response.setStatus(HTTPResponseStatus.S404);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            return response;
+        }else {
+            System.out.println("Ha habido respuesta");
+
+            if (request.getResourceParameters().keySet().contains("xslt")) {
+            	System.out.println("Trae xslt");
+            	
+                String content = "";
+                String xml = xmlController.get(uuid);
+    
+                // VERIFICACIONES DEL XSLT Y XSD--------------------------------
+                String xsltUuid= request.getResourceParameters().get("xslt");
+                System.out.println(xsltUuid);
+                String ctrXSLTResponse= xsltController.get(xsltUuid); 
+                
+                if (ctrXSLTResponse.equals("")) {
+                	System.out.println("No existe xslt");
+                    response.setStatus(HTTPResponseStatus.S404);
+                    response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+                    return response;
+                }
+    
+                String xsdUuid = xsltController.getXsdId(xsltUuid);
+                System.out.println("XSD UUID NO ESPERAMOS ESTO "+xsdUuid);
+                System.out.println("XSLT UUID "+request.getResourceParameters().get("xslt"));
+                if(xsdUuid.equals("")) {
+                	System.out.println("NO existe xsd");
+                }else {
+                	String xsd = xsdController.get(xsdUuid);
+                    
+                    if (!validateXML(xml, xsd)) {
+                        response.setStatus(HTTPResponseStatus.S400);
+                        response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+                        return response;
+                    }
+        
+                    // VERIFICACIONES DEL XSLT Y XSD-----------------------------------
+        
+                    String xsltContent = xsltController.get(request.getResourceParameters().get("xslt"));
+                    try {
+                        content = parseXmlToHtml(xml, xsltContent);
+                    } catch (Exception e) {
+                    }
+        
+                    response.setContent(content);
+                    response.setStatus(HTTPResponseStatus.S200);
+                    response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+                    return response;
+                }
+            }
+    
+            response.setContent(xmlController.get(uuid));
+            response.setStatus(HTTPResponseStatus.S200);
+            response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
+    
+            return response;
+
         }
-
-        response.setContent(xmlController.get(uuid));
-        response.setStatus(HTTPResponseStatus.S200);
-        response.putParameter("Content-Type", MIME.APPLICATION_XML.getMime());
-
-        return response;
+        
     }
 
     private boolean validateXML(String xml, String xsd) {
+    	System.out.println("XML: "+xml);
+    	System.out.println("XSD: "+xsd);
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         try {
             Schema schema = schemaFactory.newSchema(new StreamSource(new StringReader(xsd)));
@@ -293,6 +401,7 @@ public class ServiceThread implements Runnable {
             validator.validate(new StreamSource(new StringReader(xml)));
             return true;
         } catch (SAXException | IOException e) {
+        	System.out.println("EXCEPCION XD");
             e.printStackTrace();
             return false;
         }
@@ -330,7 +439,7 @@ public class ServiceThread implements Runnable {
 
         }
 
-        if (!htmlController.exist(uuid)) {
+        /*if (!htmlController.exist(uuid)) {
 
             response.setStatus(HTTPResponseStatus.S404);
             response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
@@ -342,7 +451,23 @@ public class ServiceThread implements Runnable {
 
         response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
 
-        return response;
+        return response;*/
+        
+        String ctrResponse= htmlController.get(uuid); 
+
+        if(ctrResponse.equals("")) {
+        	//NO ha habido respuesta en ningun servidor
+        	response.setStatus(HTTPResponseStatus.S404);
+            response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+            return response;
+        }else {   
+        	response.setContent(ctrResponse);
+        	response.setStatus(HTTPResponseStatus.S200);
+
+        	response.putParameter("Content-Type", MIME.TEXT_HTML.getMime());
+
+        	return response;
+        }
     }
 
     // DELETE HANDLE -----------------------------

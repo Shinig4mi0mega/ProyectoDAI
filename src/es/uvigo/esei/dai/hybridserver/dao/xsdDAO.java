@@ -14,29 +14,45 @@ public class xsdDAO implements pagesDAO {
     Connection connection;
     Properties properties;
     int port;
+    
+    String dburl;
+    String user;
+    String pass;
 
     public xsdDAO(Properties properties) {
         // añadir objeto connection
         this.properties = properties;
-        String dburl = properties.getProperty("db.url");
-        String user = properties.getProperty("db.user");
-        String pass = properties.getProperty("db.password");
+        this.dburl = properties.getProperty("db.url");
+        this.user = properties.getProperty("db.user");
+        this.pass = properties.getProperty("db.password");
+        
         this.port = Integer.parseInt(properties.getProperty("port"));
-        try {
+    }
+
+    public void createConnection(String dburl, String user, String pass) {
+    	try {
+        	System.out.println("CONNECTION");
             this.connection = DriverManager.getConnection(dburl, user, pass);
         } catch (Exception e) {
         }
-
-    }
+	}
 
     @Override
     public String addPage(String content) {
+    	createConnection(dburl,user,pass);
         UUID randomUuid = UUID.randomUUID();
         String uuid = randomUuid.toString();
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("INSERT INTO `xsd`(`uuid`, `content`) VALUES ('" + uuid + "','" + content + "')");
 
         } catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         return uuid;
@@ -50,10 +66,18 @@ public class xsdDAO implements pagesDAO {
 
     @Override
     public void deletePage(String id) {
+    	createConnection(dburl,user,pass);
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM xsd WHERE uuid=\'" + id + "\'");
 
         } catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
     }
@@ -62,6 +86,7 @@ public class xsdDAO implements pagesDAO {
     public String listPages() {
         // statement.executeQuery para traer solo cosas
         // Devuelve un objeto ResultSet
+    	createConnection(dburl,user,pass);
         StringBuilder toret = new StringBuilder();
         try (Statement statement = connection.createStatement()) {
             try (ResultSet result = statement.executeQuery("Select uuid from xsd")) {
@@ -71,6 +96,13 @@ public class xsdDAO implements pagesDAO {
             }
 
         } catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         System.out.println(toret);
@@ -81,6 +113,7 @@ public class xsdDAO implements pagesDAO {
 
     @Override
     public page get(String id) {
+    	createConnection(dburl,user,pass);
         page page = new page();
         page.setId(id);
         try (Statement statement = connection.createStatement()) {
@@ -92,6 +125,13 @@ public class xsdDAO implements pagesDAO {
             }
 
         } catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         return page;
@@ -99,6 +139,7 @@ public class xsdDAO implements pagesDAO {
 
     @Override
     public boolean exist(String id) {
+    	createConnection(dburl,user,pass);
         String content = null;
         try (Statement statement = connection.createStatement()) {
             try (ResultSet result = statement.executeQuery("Select * from xsd where uuid=\'" + id + "\'")) {
@@ -107,6 +148,13 @@ public class xsdDAO implements pagesDAO {
 
             }
         }catch (SQLException e) {
+        }finally {
+        	try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 
         //System.out.println(content);

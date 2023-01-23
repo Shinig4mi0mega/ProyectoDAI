@@ -45,6 +45,7 @@ public class xsltController {
                 }                
             }
         }
+        System.out.println("return "+toret);
         return toret;
     }
 
@@ -78,7 +79,9 @@ public class xsltController {
 
     public String getXsdId(String id) {
         String toret = "";
+        
         if(exist(id)){
+        	System.out.println("EXISTE EL UUID EN ESTE SERVER");
             toret = xsltdao.getXsdId(id).getContent();
         }
         else{
@@ -102,13 +105,13 @@ public class xsltController {
                 }                
             }
         }
+        System.out.println("return "+toret);
         return toret;
     }
 
     public boolean exist(String id) {
-
-        return xsltdao.exist(id);
-
+    	return xsltdao.exist(id);
+        
     }
 
     public void setServer(List<ServerConfiguration> serverConfigurationList){

@@ -61,6 +61,6 @@ public class HybridServerServiceImpl implements HybridServerService{
         if (!xsltDAO.exist(uuid)) {
             return "";
         }
-        return xsltDAO.getXsdId(uuid).getId();
+        return xsltDAO.getXsdId(uuid).getContent();
     }
 }
